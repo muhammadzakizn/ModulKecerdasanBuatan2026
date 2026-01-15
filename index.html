@@ -89,218 +89,23 @@
             padding-bottom: 5mm;
         }
 
-        /* ==================== COVER FROM PDF ==================== */
+        /* ==================== COVER FROM PDF (IMAGE BASED) ==================== */
         .cover-page {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
-            position: relative;
-            overflow: hidden;
+            padding: 0;
         }
 
-        .cover-shapes {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .cover-page img,
+        .author-info-page img,
+        .back-cover img {
             width: 100%;
-            height: 100%;
-        }
-
-        .shape {
-            position: absolute;
-            border-radius: 100px;
-        }
-
-        .shape-1 {
-            width: 120mm;
-            height: 180mm;
-            top: 40mm;
-            right: -20mm;
-            background: linear-gradient(180deg, var(--warm-beige) 0%, rgba(245, 158, 11, 0.6) 100%);
-            transform: rotate(-15deg);
-            opacity: 0.9;
-        }
-
-        .shape-2 {
-            width: 80mm;
-            height: 140mm;
-            top: 80mm;
-            right: 30mm;
-            background: linear-gradient(180deg, #87CEEB 0%, var(--accent-light) 100%);
-            transform: rotate(10deg);
-            opacity: 0.85;
-        }
-
-        .shape-3 {
-            width: 60mm;
-            height: 100mm;
-            top: 120mm;
-            right: 80mm;
-            background: linear-gradient(180deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);
-            transform: rotate(-5deg);
-            opacity: 0.8;
-        }
-
-        .cover-curves svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .cover-content {
-            position: relative;
-            z-index: 10;
             height: 297mm;
-            padding: 20mm 25mm;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cover-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .cover-logo img {
-            width: 25mm;
-            height: 25mm;
-            border-radius: 50%;
-            background: white;
-            padding: 2mm;
-        }
-
-        .cover-badge {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 3mm 6mm;
-            border-radius: 20px;
-            color: white;
-            font-size: 9pt;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-
-        .cover-middle {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            max-width: 100mm;
-        }
-
-        .cover-main-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 36pt;
-            font-weight: 700;
-            color: white;
-            line-height: 1.1;
-            margin-bottom: 5mm;
-        }
-
-        .cover-main-title span {
+            object-fit: cover;
             display: block;
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            font-size: 48pt;
-            color: var(--accent-cyan);
-            margin-top: 2mm;
-        }
-
-        .cover-subtitle {
-            font-size: 12pt;
-            color: rgba(255, 255, 255, 0.85);
-            font-weight: 400;
-            text-align: center;
-            margin-top: 10mm;
-            padding: 5mm 8mm;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            max-width: 120mm;
-        }
-
-        .cover-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .cover-year {
-            font-size: 32pt;
-            font-weight: 800;
-            color: white;
-        }
-
-        .cover-institution {
-            text-align: right;
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 9pt;
-            line-height: 1.6;
         }
 
         /* ==================== BACK COVER ==================== */
         .back-cover {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-dark) 100%);
-        }
-
-        .back-cover .cover-content {
-            justify-content: space-between;
-        }
-
-        .back-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 20pt;
-            color: var(--accent-cyan);
-            margin-bottom: 8mm;
-        }
-
-        .back-description {
-            font-size: 11pt;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 15mm;
-            max-width: 140mm;
-        }
-
-        .back-author-box {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 8mm;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-blue);
-            max-width: 140mm;
-        }
-
-        .back-author-name {
-            font-weight: 600;
-            font-size: 12pt;
-            color: white;
-            margin-bottom: 3mm;
-        }
-
-        .back-author-details {
-            font-size: 10pt;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-        }
-
-        .back-footer {
-            text-align: center;
-        }
-
-        .back-footer img {
-            width: 18mm;
-            margin-bottom: 5mm;
-        }
-
-        .back-institution-name {
-            font-size: 11pt;
-            font-weight: 600;
-            color: white;
-        }
-
-        .back-location {
-            font-size: 9pt;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 2mm;
+            padding: 0;
         }
 
         /* ==================== CONTENT STYLES ==================== */
@@ -735,58 +540,16 @@
 <body>
     <button class="print-btn" onclick="window.print()">📥 Download PDF</button>
 
-    <!-- ==================== PAGE 1: FRONT COVER ==================== -->
+    <!-- ==================== PAGE 1: FRONT COVER (dari PDF user) ==================== -->
     <div class="page cover-page">
-        <div class="cover-shapes">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-        </div>
-        <div class="cover-curves">
-            <svg viewBox="0 0 210 297" preserveAspectRatio="none">
-                <ellipse cx="170" cy="180" rx="100" ry="100" fill="none" stroke="rgba(255,255,255,0.12)"
-                    stroke-width="0.5" />
-                <ellipse cx="150" cy="160" rx="70" ry="70" fill="none" stroke="rgba(255,255,255,0.08)"
-                    stroke-width="0.5" />
-            </svg>
-        </div>
-        <div class="cover-content">
-            <div class="cover-top">
-                <div class="cover-logo">
-                    <img src="logo-politeknik.png" alt="Logo Politeknik Dewantara"
-                        onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%231e3a8a%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2210%22>POLTEK</text></svg>'">
-                </div>
-                <div class="cover-badge">MODUL PEMBELAJARAN</div>
-            </div>
-            <div class="cover-middle">
-                <h1 class="cover-main-title">Kecerdasan<span>BUATAN</span></h1>
-                <p class="cover-subtitle">Pembelajaran Mikrokontroler Arduino untuk Sistem Cerdas</p>
-            </div>
-            <div class="cover-bottom">
-                <div class="cover-year">2026</div>
-                <div class="cover-institution"><strong>POLITEKNIK DEWANTARA</strong><br>Teknologi Rekayasa
-                    Multimedia<br>Palopo, Sulawesi Selatan</div>
-            </div>
-        </div>
+        <img src="images/cover_page_1.png"
+            alt="Cover Modul Kecerdasan Buatan - Arduino dengan gambar papan Arduino dan kode program">
     </div>
 
-    <!-- ==================== PAGE 2: AUTHOR INFO ==================== -->
-    <div class="page">
-        <div class="author-page">
-            <h2
-                style="font-family: 'Playfair Display', serif; font-size: 20pt; color: var(--primary-blue); margin-bottom: 10mm; text-align: center;">
-                Informasi Penyusun</h2>
-            <div class="author-box">
-                <p><strong>Disusun oleh:</strong><br>Muhammad Zaky Zikra Nur</p>
-                <p><strong>NIM:</strong><br>23404044</p>
-                <p><strong>Mata Kuliah:</strong><br>Kecerdasan Buatan (AI)</p>
-                <p><strong>Dosen Pengampu:</strong><br>Ryan Alghazali Pakkaja, S.Kom., M.Kom.</p>
-                <p><strong>Program Studi:</strong><br>Teknologi Rekayasa Multimedia</p>
-                <p><strong>Institusi:</strong><br>Politeknik Dewantara</p>
-            </div>
-            <p style="margin-top: 15mm; font-size: 11pt; color: #6b7280; text-align: center;">Palopo, Januari 2026</p>
-        </div>
-        <span class="page-number right">i</span>
+    <!-- ==================== PAGE 2: AUTHOR INFO (dari PDF user) ==================== -->
+    <div class="page author-info-page">
+        <img src="images/cover_page_2.png"
+            alt="Halaman Informasi Penyusun - Muhammad Zaky Zikra Nur - Politeknik Dewantara">
     </div>
 
     <!-- ==================== PAGE 3: TABLE OF CONTENTS ==================== -->
@@ -837,7 +600,8 @@
             <p><strong>Arduino</strong> adalah platform elektronik open-source yang diciptakan pada tahun 2005 di
                 <strong>Interaction Design Institute Ivrea (IDII)</strong>, Italia. Nama "Arduino" diambil dari nama
                 sebuah bar di Ivrea, Italia, tempat para pendiri sering berkumpul. Bar tersebut dinamai mengikuti nama
-                Raja Arduino dari Ivrea (1002-1015 M).</p>
+                Raja Arduino dari Ivrea (1002-1015 M).
+            </p>
 
             <h3 class="subsection-title">Sejarah Singkat Arduino</h3>
 
@@ -1219,7 +983,8 @@ void loop() {
                         with Computers</em>. Course Technology. [MIT Media Lab / NYU ITP]</p>
 
                 <p>Kaelbling, L. P., Littman, M. L., & Moore, A. W. (1996). Reinforcement learning: A survey.
-                    <em>Journal of Artificial Intelligence Research</em>, 4, 237-285. [MIT CSAIL]</p>
+                    <em>Journal of Artificial Intelligence Research</em>, 4, 237-285. [MIT CSAIL]
+                </p>
 
                 <p>Margolis, M. (2020). <em>Arduino Cookbook</em> (3rd ed.). O'Reilly Media.</p>
 
@@ -1337,35 +1102,9 @@ void loop() {
         <span class="page-number left">45</span>
     </div>
 
-    <!-- ==================== BACK COVER ==================== -->
+    <!-- ==================== BACK COVER (dari PDF user) ==================== -->
     <div class="page back-cover">
-        <div class="cover-content">
-            <div>
-                <h3 class="back-title">Tentang Modul Ini</h3>
-                <p class="back-description">
-                    Modul Kecerdasan Buatan (AI) dengan Arduino ini disusun sebagai panduan pembelajaran komprehensif
-                    untuk memahami implementasi sistem cerdas pada perangkat embedded. Materi mencakup dasar-dasar
-                    Arduino, 17+ komponen elektronik, hingga project praktis yang mengintegrasikan konsep AI.
-                    <br><br>
-                    Dilengkapi dengan gambar ilustrasi, diagram alur, dan referensi akademis dari para ahli MIT,
-                    Stanford, dan Harvard.
-                </p>
-                <div class="back-author-box">
-                    <p class="back-author-name">Muhammad Zaky Zikra Nur</p>
-                    <p class="back-author-details">
-                        NIM: 23404044<br>
-                        Program Studi: Teknologi Rekayasa Multimedia<br>
-                        Dosen Pengampu: Ryan Alghazali Pakkaja, S.Kom., M.Kom.
-                    </p>
-                </div>
-            </div>
-            <div class="back-footer">
-                <img src="logo-politeknik.png" alt="Logo Politeknik Dewantara"
-                    onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%231e3a8a%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2210%22>POLTEK</text></svg>'">
-                <p class="back-institution-name">POLITEKNIK DEWANTARA</p>
-                <p class="back-location">Palopo, Sulawesi Selatan — 2026</p>
-            </div>
-        </div>
+        <img src="images/cover_page_3.png" alt="Cover Belakang Modul - Deskripsi modul dan QR code akses online">
     </div>
 
     <script>
