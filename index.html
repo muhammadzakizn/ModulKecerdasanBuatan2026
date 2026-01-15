@@ -594,7 +594,7 @@
                 border-radius: 50%;
                 object-fit: cover;
                 border: 3px solid white;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
                 margin-bottom: 5px;
             }
 
@@ -626,6 +626,63 @@
                 font-size: 0.9em;
                 color: var(--primary-blue);
             }
+
+            .expert-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                margin-top: 20px;
+            }
+
+            .expert-card {
+                border: 1px solid #ddd;
+                padding: 10px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                page-break-inside: avoid;
+                background: white;
+                /* Removed shadow to prevent huge PDF size */
+            }
+
+            .expert-card img {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 1px solid #eee;
+            }
+
+            .expert-info h4 {
+                margin: 0;
+                font-size: 12px;
+                color: var(--primary-blue);
+                margin-bottom: 2px;
+            }
+
+            .expert-info p {
+                margin: 0;
+                font-size: 9px;
+                color: #555;
+                line-height: 1.3;
+            }
+
+            h1,
+            h2,
+            h3 {
+                page-break-after: avoid;
+            }
+
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            p {
+                orphans: 3;
+                widows: 3;
+            }
         }
     </style>
 </head>
@@ -636,13 +693,13 @@
 
     <!-- ==================== PAGE 1: FRONT COVER (dari PDF user) ==================== -->
     <div class="page cover-page">
-        <img src="images/cover_page_1.png"
+        <img src="images/cover_page_1.jpg"
             alt="Cover Modul Kecerdasan Buatan - Arduino dengan gambar papan Arduino dan kode program">
     </div>
 
     <!-- ==================== PAGE 2: AUTHOR INFO (dari PDF user) ==================== -->
     <div class="page author-info-page">
-        <img src="images/cover_page_2.png"
+        <img src="images/cover_page_2.jpg"
             alt="Halaman Informasi Penyusun - Muhammad Zaky Zikra Nur - Politeknik Dewantara">
     </div>
 
@@ -663,6 +720,8 @@
                         class="toc-dots"></span><span class="toc-page-num">3</span></li>
                 <li class="toc-item sub"><span>1.4 Hubungan Arduino dengan AI</span><span class="toc-dots"></span><span
                         class="toc-page-num">4</span></li>
+                <li class="toc-item sub"><span>1.5 Tokoh Pionir AI & IoT</span><span class="toc-dots"></span><span
+                        class="toc-page-num">5</span></li>
                 <li class="toc-item main"><span>BAB II — DASAR-DASAR ARDUINO</span><span class="toc-dots"></span><span
                         class="toc-page-num">6</span></li>
                 <li class="toc-item main"><span>BAB III — KOMPONEN-KOMPONEN ARDUINO</span><span
@@ -689,10 +748,12 @@
             <ul class="toc-list">
                 <li class="toc-item sub"><span>Gambar 1.1 — Simon Monk (Author)</span><span
                         class="toc-dots"></span><span class="toc-page-num">3</span></li>
-                <li class="toc-item sub"><span>Gambar 1.2 — Tom Igoe (Co-founder Arduino)</span><span
+                <li class="toc-item sub"><span>Gambar 1.2 — Tom Igoe & Dan O'Sullivan</span><span
                         class="toc-dots"></span><span class="toc-page-num">3</span></li>
-                <li class="toc-item sub"><span>Gambar 1.3 — Stuart Russell & Peter Norvig (AI Experts)</span><span
+                <li class="toc-item sub"><span>Gambar 1.3 — Russell & Norvig (AI Experts)</span><span
                         class="toc-dots"></span><span class="toc-page-num">4</span></li>
+                <li class="toc-item sub"><span>Gambar 1.4 — Tokoh Pionir AI & IoT (Gallery)</span><span
+                        class="toc-dots"></span><span class="toc-page-num">5</span></li>
                 <li class="toc-item sub"><span>Gambar 2.1 — Arduino UNO Board</span><span class="toc-dots"></span><span
                         class="toc-page-num">6</span></li>
                 <li class="toc-item sub"><span>Gambar 3.1 — Breadboard</span><span class="toc-dots"></span><span
@@ -848,9 +909,12 @@
             </div>
 
             <div class="quote-container">
-                <div class="expert-photo-card">
-                    <img src="images/experts/tom_igoe.jpg" alt="Tom Igoe">
-                    <b>Tom Igoe</b><br>Co-founder
+                <div class="expert-photo-card" style="flex: 0 0 110px;">
+                    <img src="images/experts/tom_igoe.jpg" alt="Tom Igoe"
+                        style="width:45px; height:45px; display:inline-block;">
+                    <img src="images/experts/dan_osullivan.jpg" alt="Dan O'Sullivan"
+                        style="width:45px; height:45px; display:inline-block;">
+                    <b>Igoe & O'Sullivan</b><br>Co-authors
                     <a href="http://tisch.nyu.edu" class="source-url" target="_blank">tisch.nyu.edu</a>
                     <div style="margin-top:2px; font-weight:bold; color:#333;">Gambar 1.2</div>
                 </div>
@@ -967,6 +1031,92 @@
             </ul>
         </div>
         <span class="page-number left">4</span>
+    </div>
+
+    <!-- ==================== PAGE 5: GALLERY TOKOH ==================== -->
+    <div class="page content-page">
+        <div class="page-content">
+            <div class="page-header">BAB I — Pendahuluan</div>
+            <h2 class="section-title">1.5 Tokoh Pionir AI & IoT (Gambar 1.4)</h2>
+            <p>Selain para pendiri, berikut adalah tokoh-tokoh penting yang karyanya menjadi landasan pengembangan IoT
+                dan AI:</p>
+
+            <div class="expert-grid">
+                <div class="expert-card">
+                    <img src="images/experts/marvin_minsky.jpg" alt="Marvin Minsky">
+                    <div class="expert-info">
+                        <h4>Marvin Minsky</h4>
+                        <p>Co-founder MIT AI Lab. Bapak AI Modern.</p>
+                    </div>
+                </div>
+                <div class="expert-card">
+                    <img src="images/experts/rodney_brooks.jpg" alt="Rodney Brooks">
+                    <div class="expert-info">
+                        <h4>Rodney Brooks</h4>
+                        <p>Behavior-based Robotics. iRobot Founder.</p>
+                    </div>
+                </div>
+                <div class="expert-card">
+                    <img src="images/experts/rosalind_picard.png" alt="Rosalind Picard">
+                    <div class="expert-info">
+                        <h4>Rosalind Picard</h4>
+                        <p>Pionir Affective Computing MIT.</p>
+                    </div>
+                </div>
+                <div class="expert-card">
+                    <img src="images/experts/patrick_winston.jpg" alt="Patrick Winston">
+                    <div class="expert-info">
+                        <h4>Patrick Winston</h4>
+                        <p>Direktur MIT AI Lab (1972-1997).</p>
+                    </div>
+                </div>
+                <div class="expert-card">
+                    <img src="images/experts/richard_sutton.webp" alt="Richard Sutton">
+                    <div class="expert-info">
+                        <h4>Richard Sutton</h4>
+                        <p>Bapak Reinforcement Learning.</p>
+                    </div>
+                </div>
+                <div class="expert-card">
+                    <img src="images/experts/andrew_barto.jpg" alt="Andrew Barto">
+                    <div class="expert-info">
+                        <h4>Andrew Barto</h4>
+                        <p>Co-author 'Reinforcement Learning'.</p>
+                    </div>
+                </div>
+                <div class="expert-card">
+                    <img src="images/experts/pete_warden.jpg" alt="Pete Warden">
+                    <div class="expert-info">
+                        <h4>Pete Warden</h4>
+                        <p>Penulis TinyML, Google AI Alumni.</p>
+                    </div>
+                </div>
+                <div class="expert-card">
+                    <img src="images/experts/daniel_situnayake.jpg" alt="Daniel Situnayake">
+                    <div class="expert-info">
+                        <h4>Daniel Situnayake</h4>
+                        <p>Co-author TinyML, Edge AI Expert.</p>
+                    </div>
+                </div>
+                <div class="expert-card">
+                    <img src="images/experts/neil_gershenfeld.jpg" alt="Neil Gershenfeld">
+                    <div class="expert-info">
+                        <h4>Neil Gershenfeld</h4>
+                        <p>Founder Fab Labs (MIT CBA).</p>
+                    </div>
+                </div>
+                <div class="expert-card">
+                    <img src="images/experts/michael_margolis.png" alt="Michael Margolis">
+                    <div class="expert-info">
+                        <h4>Michael Margolis</h4>
+                        <p>Penulis 'Arduino Cookbook'.</p>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top:10px; font-size:10px; color:#666;"><em>Tokoh-tokoh di atas memiliki kontribusi
+                    signifikan dalam literatur yang dikutip di modul ini.</em></p>
+        </div>
+        <span class="page-number right">5</span>
     </div>
 
     <!-- ==================== BAB II: DASAR ARDUINO ==================== -->
@@ -1959,9 +2109,18 @@ void loop() {
             <ul style="font-size: 10px; word-break: break-all;">
                 <li><strong>Gambar 1.1 Simon Monk:</strong> https://github.com/simonmonk</li>
                 <li><strong>Gambar 1.2 Tom Igoe:</strong> http://tisch.nyu.edu/about/directory/itp/3558397.html</li>
+                <li><strong>Gambar 1.2 Dan O'Sullivan:</strong> http://tisch.nyu.edu/about/directory/itp/3558397.html
+                </li>
                 <li><strong>Gambar 1.3 Stuart Russell:</strong>
                     https://www.artificial-intelligence.blog/people-in-ai/stuart-russell</li>
                 <li><strong>Gambar 1.3 Peter Norvig:</strong> https://www.xprize.org/people/peter-norvig</li>
+                <li><strong>Gambar 1.4 Minsky:</strong> https://id.wikipedia.org/wiki/Marvin_Minsky</li>
+                <li><strong>Gambar 1.4 Brooks:</strong> https://en.wikipedia.org/wiki/Rodney_Brooks</li>
+                <li><strong>Gambar 1.4 Picard:</strong> https://www.media.mit.edu/~picard</li>
+                <li><strong>Gambar 1.4 Winston:</strong> https://cbmm.mit.edu/about/people/winston</li>
+                <li><strong>Gambar 1.4 Sutton/Barto:</strong> https://webdocs.cs.ualberta.ca/~sutton/</li>
+                <li><strong>Gambar 1.4 Warden/Situnayake:</strong> https://se-radio.net</li>
+                <li><strong>Gambar 1.4 Gershenfeld:</strong> https://www.edge.org/memberbio/neil_gershenfeld</li>
                 <li><strong>Gambar 5.1 Massimo Banzi:</strong> https://commons.wikimedia.org/wiki/File:Massimo_banzi.jpg
                 </li>
                 <li><strong>Arduino UNO Board:</strong> https://store.arduino.cc/products/arduino-uno-rev3</li>
@@ -1973,7 +2132,7 @@ void loop() {
 
     <!-- ==================== BACK COVER (dari PDF user) ==================== -->
     <div class="page back-cover">
-        <img src="images/cover_page_3.png" alt="Cover Belakang Modul - Deskripsi modul dan QR code akses online">
+        <img src="images/cover_page_3.jpg" alt="Cover Belakang Modul - Deskripsi modul dan QR code akses online">
     </div>
 
     <script>
