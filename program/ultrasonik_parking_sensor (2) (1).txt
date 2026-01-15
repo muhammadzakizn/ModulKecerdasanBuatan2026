@@ -1,0 +1,93 @@
+/*
+ * PROJECT: TEST SENSOR ULTRASONIK HC-SR04
+ * Deskripsi: Program sederhana untuk test sensor ultrasonik
+ * 
+ * KOMPONEN YANG DIBUTUHKAN:
+ * - Arduino UNO
+ * - 1 Sensor Ultrasonik HC-SR04
+ * - Breadboard
+ * - Kabel Jumper
+ * 
+ * KONEKSI:
+ * Sensor Ultrasonik HC-SR04:
+ *   VCC  -> 5V Breadboard -> 5V Arduino
+ *   GND  -> GND Breadboard -> GND Arduino
+ *   TRIG -> Pin 5 Breadboard -> Pin 5 Arduino
+ *   ECHO -> Pin 6 Breadboard -> Pin 6 Arduino
+ */
+
+// Pin Sensor Ultrasonik
+const int trigPin = 5;
+const int echoPin = 6;
+
+// Variabel untuk menyimpan hasil pengukuran
+long duration;
+int distance;
+
+void setup() {
+  // Setup pin sensor
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  
+  // Setup Serial Monitor untuk melihat hasil
+  Serial.begin(9600);
+  Serial.println("===========================");
+  Serial.println("TEST SENSOR ULTRASONIK");
+  Serial.println("===========================");
+  Serial.println();
+  delay(1000);
+}
+
+void loop() {
+  // Kirim sinyal TRIG
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  
+  digitalWrite(trigPin, LOW);
+  
+  // Baca sinyal ECHO
+  duration = pulseIn(echoPin, HIGH);
+  
+  // Hitung jarak dalam cm
+  // Rumus: jarak = (waktu × kecepatan suara) / 2
+  // Kecepatan suara = 343 m/s = 0.0343 cm/μs
+  distance = duration * 0.0343 / 2;
+  
+  // Tampilkan hasil di Serial Monitor
+  Serial.print("Jarak: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  
+  // Tunggu 500ms sebelum mengukur lagi
+  delay(500);
+}
+
+/*
+ * CARA TEST:
+ * 
+ * 1. Upload program ini ke Arduino
+ * 2. Buka Serial Monitor (klik ikon kaca pembesar di pojok kanan atas)
+ * 3. Set baudrate ke 9600 (di dropdown bawah Serial Monitor)
+ * 4. Dekatkan tangan atau objek ke sensor
+ * 5. Lihat angka jarak di Serial Monitor
+ * 
+ * HASIL YANG DIHARAPKAN:
+ * - Jika tangan jauh: angka besar (misal: 100 cm, 200 cm)
+ * - Jika tangan dekat: angka kecil (misal: 10 cm, 5 cm)
+ * - Angka berubah-ubah sesuai jarak objek
+ * 
+ * TROUBLESHOOTING:
+ * - Jika angka selalu 0: cek koneksi ECHO dan TRIG
+ * - Jika angka tidak masuk akal: cek koneksi VCC dan GND
+ * - Jika tidak ada tampilan: cek baudrate Serial Monitor (harus 9600)
+ * - Jika angka tidak stabil: normal, sensor butuh permukaan datar
+ * 
+ * SPESIFIKASI SENSOR:
+ * - Jarak minimum: ~2 cm
+ * - Jarak maksimum: ~400 cm
+ * - Sudut deteksi: ~15 derajat
+ * - Akurasi: ±3 mm
+ */

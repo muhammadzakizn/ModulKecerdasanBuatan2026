@@ -108,6 +108,31 @@
             padding: 0;
         }
 
+        /* ==================== GRADIENT CORNER DECORATION ==================== */
+        .content-page {
+            position: relative;
+        }
+
+        .content-page::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -20%;
+            width: 200px;
+            height: 250px;
+            background: url('images/gradient.png') no-repeat center center;
+            background-size: contain;
+            transform: rotate(-30deg);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.85;
+        }
+
+        .content-page .page-content {
+            position: relative;
+            z-index: 1;
+        }
+
         /* ==================== CONTENT STYLES ==================== */
         .author-page {
             display: flex;
@@ -553,7 +578,7 @@
     </div>
 
     <!-- ==================== PAGE 3: TABLE OF CONTENTS ==================== -->
-    <div class="page">
+    <div class="page content-page">
         <div class="toc-page">
             <h2 class="toc-title">DAFTAR ISI</h2>
             <ul class="toc-list">
@@ -585,7 +610,7 @@
     </div>
 
     <!-- ==================== BAB I: PENDAHULUAN ==================== -->
-    <div class="page">
+    <div class="page content-page">
         <div class="page-content">
             <div class="page-header">Modul Kecerdasan Buatan — Arduino</div>
             <h1 class="chapter-title" style="page-break-before: auto;">BAB I<br>PENDAHULUAN</h1>
@@ -627,7 +652,7 @@
     </div>
 
     <!-- ==================== PAGE: PENDIRI ARDUINO ==================== -->
-    <div class="page">
+    <div class="page content-page">
         <div class="page-content">
             <div class="page-header">BAB I — Pendahuluan</div>
 
@@ -695,7 +720,7 @@
     </div>
 
     <!-- ==================== PAGE: PENGERTIAN PARA AHLI ==================== -->
-    <div class="page">
+    <div class="page content-page">
         <div class="page-content">
             <div class="page-header">BAB I — Pendahuluan</div>
 
@@ -747,7 +772,7 @@
     </div>
 
     <!-- ==================== PAGE: HUBUNGAN DENGAN AI ==================== -->
-    <div class="page">
+    <div class="page content-page">
         <div class="page-content">
             <div class="page-header">BAB I — Pendahuluan</div>
 
@@ -816,7 +841,7 @@
     </div>
 
     <!-- ==================== BAB II: DASAR ARDUINO ==================== -->
-    <div class="page">
+    <div class="page content-page">
         <div class="page-content">
             <div class="page-header">Modul Kecerdasan Buatan — Arduino</div>
             <h1 class="chapter-title">BAB II<br>DASAR-DASAR ARDUINO</h1>
@@ -900,7 +925,7 @@ void loop() {
     </div>
 
     <!-- ==================== BAB III: KOMPONEN ==================== -->
-    <div class="page">
+    <div class="page content-page">
         <div class="page-content">
             <div class="page-header">Modul Kecerdasan Buatan — Arduino</div>
             <h1 class="chapter-title">BAB III<br>KOMPONEN-KOMPONEN ARDUINO</h1>
@@ -961,8 +986,418 @@ void loop() {
         <span class="page-number left">10</span>
     </div>
 
+    <!-- ==================== BAB IV: PROJECT 1 - RUNNING LED ==================== -->
+    <div class="page content-page">
+        <div class="page-content">
+            <div class="page-header">Modul Kecerdasan Buatan — Arduino</div>
+            <h1 class="chapter-title">BAB IV<br>PROJECT PEMBELAJARAN</h1>
+
+            <h2 class="section-title">4.1 Project 1: Running LED + Lagu Selamat Ulang Tahun</h2>
+
+            <div class="info-box">
+                <h4>📋 Deskripsi Project</h4>
+                <p>5 LED menyala bergantian sambil buzzer memainkan lagu "Happy Birthday". Project ini mendemonstrasikan
+                    penggunaan array, iterasi loop, dan fungsi tone() untuk menghasilkan melodi.</p>
+            </div>
+
+            <h3 class="subsection-title">4.1.1 Komponen yang Dibutuhkan</h3>
+            <table>
+                <tr>
+                    <th>Komponen</th>
+                    <th>Jumlah</th>
+                    <th>Keterangan</th>
+                </tr>
+                <tr>
+                    <td>Arduino UNO</td>
+                    <td>1</td>
+                    <td>Mikrokontroler utama</td>
+                </tr>
+                <tr>
+                    <td>LED</td>
+                    <td>5</td>
+                    <td>Warna bebas (merah, kuning, hijau, dll)</td>
+                </tr>
+                <tr>
+                    <td>Resistor 220Ω</td>
+                    <td>5</td>
+                    <td>Pembatas arus untuk LED</td>
+                </tr>
+                <tr>
+                    <td>Buzzer Piezoelektrik</td>
+                    <td>1</td>
+                    <td>Aktif buzzer untuk melodi</td>
+                </tr>
+                <tr>
+                    <td>Breadboard</td>
+                    <td>1</td>
+                    <td>Papan rangkaian</td>
+                </tr>
+                <tr>
+                    <td>Kabel Jumper</td>
+                    <td>Secukupnya</td>
+                    <td>Male-to-male</td>
+                </tr>
+            </table>
+
+            <h3 class="subsection-title">4.1.2 Skema Koneksi Hardware</h3>
+            <div class="info-box">
+                <h4>🔌 Wiring Diagram</h4>
+                <p>
+                    <strong>LED 1-5:</strong> Pin 8, 9, 10, 11, 12 → Resistor 220Ω → GND<br>
+                    <strong>Buzzer (+):</strong> Pin 7 Arduino (LANGSUNG tanpa resistor)<br>
+                    <strong>Buzzer (-):</strong> GND Arduino
+                </p>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Tips Suara Lebih Keras</h4>
+                <p>
+                    ✅ Gunakan frekuensi oktaf tinggi (523-1175 Hz)<br>
+                    ✅ Hubungkan buzzer LANGSUNG ke pin (tanpa resistor)<br>
+                    ✅ Buka tutup buzzer jika ada penutup plastik<br>
+                    ❌ JANGAN pakai resistor di buzzer (akan meredam suara)
+                </p>
+            </div>
+        </div>
+        <span class="page-number right">15</span>
+    </div>
+
+    <!-- ==================== PROJECT 1: KODE PROGRAM ==================== -->
+    <div class="page content-page">
+        <div class="page-content">
+            <div class="page-header">BAB IV — Project Pembelajaran</div>
+
+            <h3 class="subsection-title">4.1.3 Langkah Instalasi Software</h3>
+            <ol>
+                <li><strong>Download Arduino IDE</strong> dari <code>https://www.arduino.cc/en/software</code></li>
+                <li><strong>Install driver CH340</strong> jika menggunakan Arduino clone</li>
+                <li><strong>Hubungkan Arduino</strong> ke komputer via USB</li>
+                <li><strong>Pilih Board:</strong> Tools → Board → Arduino UNO</li>
+                <li><strong>Pilih Port:</strong> Tools → Port → COM yang terdeteksi</li>
+                <li><strong>Copy kode</strong> di bawah ini ke Arduino IDE</li>
+                <li><strong>Klik Upload</strong> (tombol panah ke kanan)</li>
+            </ol>
+
+            <h3 class="subsection-title">4.1.4 Kode Program (Tested &amp; Working)</h3>
+            <pre><code>/*
+ * PROJECT: Running LED + Lagu "Selamat Ulang Tahun"
+ * LED 1-5 -> Pin 8, 9, 10, 11, 12
+ * Buzzer (+) -> Pin 7 (LANGSUNG tanpa resistor)
+ */
+
+int ledPins[] = {8, 9, 10, 11, 12};
+int jumlahLED = 5;
+int buzzerPin = 7;
+
+// Nada musik (Hz) - Oktaf Tinggi
+#define NOTE_C4  523
+#define NOTE_D4  587
+#define NOTE_E4  659
+#define NOTE_F4  698
+#define NOTE_G4  784
+#define NOTE_A4  880
+#define NOTE_B4  988
+#define NOTE_C5  1047
+
+// Melodi Happy Birthday
+int melody[] = {
+  NOTE_C4, NOTE_C4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4,
+  NOTE_C4, NOTE_C4, NOTE_D4, NOTE_C4, NOTE_G4, NOTE_F4,
+  NOTE_C4, NOTE_C4, NOTE_C5, NOTE_A4, NOTE_F4, NOTE_E4, NOTE_D4,
+  NOTE_B4, NOTE_B4, NOTE_A4, NOTE_F4, NOTE_G4, NOTE_F4
+};
+
+int noteDurations[] = {
+  4, 8, 4, 4, 4, 2,
+  4, 8, 4, 4, 4, 2,
+  4, 8, 4, 4, 4, 4, 2,
+  4, 8, 4, 4, 4, 2
+};
+
+void setup() {
+  for (int i = 0; i < jumlahLED; i++) {
+    pinMode(ledPins[i], OUTPUT);
+  }
+  pinMode(buzzerPin, OUTPUT);
+}
+
+void loop() {
+  playHappyBirthday();
+  delay(3000);
+}</code></pre>
+        </div>
+        <span class="page-number left">16</span>
+    </div>
+
+    <!-- ==================== PROJECT 2: SENSOR PARKIR ==================== -->
+    <div class="page content-page">
+        <div class="page-content">
+            <div class="page-header">BAB IV — Project Pembelajaran</div>
+
+            <h2 class="section-title">4.2 Project 2: Sistem Deteksi Jarak (Sensor Parkir)</h2>
+
+            <div class="info-box">
+                <h4>📋 Deskripsi Project</h4>
+                <p>Sistem deteksi jarak dengan 4 tingkat peringatan. LED dan buzzer berubah intensitas sesuai jarak
+                    objek - mirip sensor parkir mobil.</p>
+            </div>
+
+            <h3 class="subsection-title">4.2.1 Komponen yang Dibutuhkan</h3>
+            <table>
+                <tr>
+                    <th>Komponen</th>
+                    <th>Jumlah</th>
+                    <th>Keterangan</th>
+                </tr>
+                <tr>
+                    <td>Arduino UNO</td>
+                    <td>1</td>
+                    <td>Mikrokontroler utama</td>
+                </tr>
+                <tr>
+                    <td>Sensor Ultrasonik HC-SR04</td>
+                    <td>1</td>
+                    <td>Pengukur jarak</td>
+                </tr>
+                <tr>
+                    <td>LED</td>
+                    <td>4</td>
+                    <td>Hijau, Kuning, Orange, Merah</td>
+                </tr>
+                <tr>
+                    <td>Resistor 220Ω</td>
+                    <td>4</td>
+                    <td>Pembatas arus LED</td>
+                </tr>
+                <tr>
+                    <td>Buzzer Piezoelektrik</td>
+                    <td>1</td>
+                    <td>Alarm suara</td>
+                </tr>
+                <tr>
+                    <td>Breadboard + Jumper</td>
+                    <td>1 set</td>
+                    <td>Kabel koneksi</td>
+                </tr>
+            </table>
+
+            <h3 class="subsection-title">4.2.2 Skema Koneksi Hardware</h3>
+            <div class="info-box">
+                <h4>🔌 Wiring Sensor Ultrasonik HC-SR04</h4>
+                <p>
+                    <strong>VCC:</strong> → 5V Arduino<br>
+                    <strong>GND:</strong> → GND Arduino<br>
+                    <strong>TRIG:</strong> → Pin 5 Arduino<br>
+                    <strong>ECHO:</strong> → Pin 6 Arduino
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h4>💡 Wiring LED (dengan Resistor 220Ω)</h4>
+                <p>
+                    <strong>LED 1 (Hijau):</strong> Pin 8 → Resistor → GND<br>
+                    <strong>LED 2 (Kuning):</strong> Pin 9 → Resistor → GND<br>
+                    <strong>LED 3 (Orange):</strong> Pin 10 → Resistor → GND<br>
+                    <strong>LED 4 (Merah):</strong> Pin 11 → Resistor → GND<br>
+                    <strong>Buzzer (+):</strong> Pin 13 → GND
+                </p>
+            </div>
+
+            <h3 class="subsection-title">4.2.3 Tabel Respons 4 Tingkat</h3>
+            <table>
+                <tr>
+                    <th>Jarak</th>
+                    <th>LED</th>
+                    <th>Buzzer</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>&gt; 50 cm</td>
+                    <td>● ○ ○ ○</td>
+                    <td>Beep pelan</td>
+                    <td>AMAN ✓</td>
+                </tr>
+                <tr>
+                    <td>30-50 cm</td>
+                    <td>● ● ○ ○</td>
+                    <td>Beep sedang</td>
+                    <td>HATI-HATI ⚠</td>
+                </tr>
+                <tr>
+                    <td>10-30 cm</td>
+                    <td>● ● ● ○</td>
+                    <td>Beep cepat</td>
+                    <td>PERINGATAN ⚠⚠</td>
+                </tr>
+                <tr>
+                    <td>&lt; 10 cm</td>
+                    <td>● ● ● 💥</td>
+                    <td>ALARM KERAS</td>
+                    <td>BAHAYA!!! 🚨</td>
+                </tr>
+            </table>
+        </div>
+        <span class="page-number right">17</span>
+    </div>
+
+    <!-- ==================== PROJECT 2: KODE PROGRAM ==================== -->
+    <div class="page content-page">
+        <div class="page-content">
+            <div class="page-header">BAB IV — Project Pembelajaran</div>
+
+            <h3 class="subsection-title">4.2.4 Kode Program Sensor Parkir (Tested)</h3>
+            <pre><code>/*
+ * PROJECT: ALARM SENSOR GERAKAN + 4 LED INDIKATOR
+ * Sensor: TRIG=Pin5, ECHO=Pin6
+ * LED: Pin 8,9,10,11 | Buzzer: Pin 13
+ */
+
+const int trigPin = 5;
+const int echoPin = 6;
+const int led1Pin = 8;   // Hijau
+const int led2Pin = 9;   // Kuning
+const int led3Pin = 10;  // Orange
+const int led4Pin = 11;  // Merah
+const int buzzerPin = 13;
+
+long duration;
+int distance;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(led1Pin, OUTPUT);
+  pinMode(led2Pin, OUTPUT);
+  pinMode(led3Pin, OUTPUT);
+  pinMode(led4Pin, OUTPUT);
+  pinMode(buzzerPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  distance = measureDistance();
+  
+  if (distance > 50) {
+    // AMAN - LED 1 saja
+    digitalWrite(led1Pin, HIGH);
+    digitalWrite(led2Pin, LOW);
+    digitalWrite(led3Pin, LOW);
+    digitalWrite(led4Pin, LOW);
+    tone(buzzerPin, 500, 100);
+    delay(1000);
+  }
+  else if (distance > 30) {
+    // HATI-HATI - LED 1 & 2
+    digitalWrite(led1Pin, HIGH);
+    digitalWrite(led2Pin, HIGH);
+    digitalWrite(led3Pin, LOW);
+    digitalWrite(led4Pin, LOW);
+    tone(buzzerPin, 1000, 150);
+    delay(500);
+  }
+  else if (distance > 10) {
+    // PERINGATAN - LED 1,2,3
+    digitalWrite(led1Pin, HIGH);
+    digitalWrite(led2Pin, HIGH);
+    digitalWrite(led3Pin, HIGH);
+    digitalWrite(led4Pin, LOW);
+    tone(buzzerPin, 1500, 200);
+    delay(300);
+  }
+  else {
+    // BAHAYA - Semua LED + alarm
+    digitalWrite(led1Pin, HIGH);
+    digitalWrite(led2Pin, HIGH);
+    digitalWrite(led3Pin, HIGH);
+    for (int i = 0; i < 5; i++) {
+      digitalWrite(led4Pin, HIGH);
+      tone(buzzerPin, 2500);
+      delay(50);
+      digitalWrite(led4Pin, LOW);
+      noTone(buzzerPin);
+      delay(50);
+    }
+  }
+}</code></pre>
+        </div>
+        <span class="page-number left">18</span>
+    </div>
+
+    <!-- ==================== LANGKAH PENGUJIAN ==================== -->
+    <div class="page content-page">
+        <div class="page-content">
+            <div class="page-header">BAB IV — Project Pembelajaran</div>
+
+            <h3 class="subsection-title">4.2.5 Fungsi Pengukuran Jarak</h3>
+            <pre><code>int measureDistance() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  duration = pulseIn(echoPin, HIGH, 30000);
+  int dist = duration * 0.0343 / 2;
+  
+  if (dist <= 0 || dist > 400) {
+    return 999;
+  }
+  return dist;
+}</code></pre>
+
+            <h2 class="section-title">4.3 Panduan Pengujian Hardware</h2>
+
+            <div class="info-box">
+                <h4>🔧 Langkah Testing</h4>
+                <p>
+                    <strong>1.</strong> Pastikan semua koneksi sudah benar sesuai skema<br>
+                    <strong>2.</strong> Upload kode ke Arduino<br>
+                    <strong>3.</strong> Buka Serial Monitor (Ctrl+Shift+M)<br>
+                    <strong>4.</strong> Set baud rate ke 9600<br>
+                    <strong>5.</strong> Dekatkan objek ke sensor dan amati respons
+                </p>
+            </div>
+
+            <h3 class="subsection-title">Troubleshooting Umum</h3>
+            <table>
+                <tr>
+                    <th>Masalah</th>
+                    <th>Penyebab</th>
+                    <th>Solusi</th>
+                </tr>
+                <tr>
+                    <td>LED tidak menyala</td>
+                    <td>Polaritas terbalik</td>
+                    <td>Cek kaki panjang LED ke (+)</td>
+                </tr>
+                <tr>
+                    <td>Buzzer tidak bunyi</td>
+                    <td>Ada resistor</td>
+                    <td>Lepas resistor, hubung langsung</td>
+                </tr>
+                <tr>
+                    <td>Jarak selalu 0</td>
+                    <td>Koneksi sensor</td>
+                    <td>Cek TRIG/ECHO ke pin yang benar</td>
+                </tr>
+                <tr>
+                    <td>Upload error</td>
+                    <td>Port salah</td>
+                    <td>Tools → Port → pilih COM yang benar</td>
+                </tr>
+            </table>
+
+            <div class="academic-quote">
+                "Physical computing allows humans to communicate with digital systems through tangible interfaces.
+                Arduino projects demonstrate this interaction paradigm effectively."
+                <span class="author">— Igoe, T. & O'Sullivan, D. (2004). Physical Computing. NYU ITP</span>
+            </div>
+        </div>
+        <span class="page-number right">19</span>
+    </div>
+
     <!-- ==================== DAFTAR PUSTAKA ==================== -->
-    <div class="page">
+    <div class="page content-page">
         <div class="page-content">
             <div class="page-header">Modul Kecerdasan Buatan — Arduino</div>
             <h1 class="chapter-title">DAFTAR PUSTAKA</h1>
@@ -1019,7 +1454,7 @@ void loop() {
     </div>
 
     <!-- ==================== LAMPIRAN ==================== -->
-    <div class="page">
+    <div class="page content-page">
         <div class="page-content">
             <div class="page-header">Modul Kecerdasan Buatan — Arduino</div>
             <h1 class="chapter-title">LAMPIRAN</h1>

@@ -1,0 +1,141 @@
+/*
+ * PROJECT: Running LED + Lagu "Selamat Ulang Tahun" VERSI KERAS
+ * Deskripsi: 5 LED menyala bergantian + Buzzer memainkan lagu Happy Birthday
+ * 
+ * KOMPONEN YANG DIBUTUHKAN:
+ * - Arduino UNO
+ * - 5 buah LED (warna bebas)
+ * - 5 buah Resistor 220Ω (untuk LED)
+ * - 1 buah Buzzer Piezoelektrik
+ * - Breadboard
+ * - Kabel Jumper
+ * 
+ * KONEKSI:
+ * LED 1-5 -> Pin 8, 9, 10, 11, 12 (dengan resistor 220Ω)
+ * Buzzer (+) -> Pin 7 Arduino (LANGSUNG TANPA RESISTOR untuk volume maksimal)
+ * Buzzer (-) -> GND Arduino
+ * 
+ * TIPS UNTUK SUARA LEBIH KERAS:
+ * 1. ✅ SUDAH DIATUR: Pakai frekuensi oktaf tinggi (523-1175 Hz)
+ * 2. ✅ Hubungkan buzzer LANGSUNG ke pin 7 (tanpa resistor)
+ * 3. ✅ Gunakan buzzer piezo yang berkualitas bagus
+ * 4. ⚠️ JANGAN pakai resistor di buzzer (akan meredam suara)
+ * 5. 💡 Buka tutup buzzer jika ada penutup plastik
+ */
+
+// Deklarasi pin untuk 5 LED
+int ledPins[] = {8, 9, 10, 11, 12};
+int jumlahLED = 5;
+
+// Deklarasi pin untuk Buzzer
+int buzzerPin = 7;
+
+// Definisi nada musik (dalam Hz) - OKTAF TINGGI UNTUK SUARA KERAS
+#define NOTE_C4  523  // C5 (oktaf lebih tinggi = lebih keras)
+#define NOTE_D4  587  // D5
+#define NOTE_E4  659  // E5
+#define NOTE_F4  698  // F5
+#define NOTE_G4  784  // G5
+#define NOTE_A4  880  // A5
+#define NOTE_B4  988  // B5
+#define NOTE_C5  1047 // C6
+#define NOTE_D5  1175 // D6
+
+// Melodi lagu "Selamat Ulang Tahun" (Happy Birthday)
+// Selamat ulang tahun, selamat ulang tahun
+// Selamat ulang tahun (nama), selamat ulang tahun
+int melody[] = {
+  NOTE_C4, NOTE_C4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4,  // Selamat ulang tahun
+  NOTE_C4, NOTE_C4, NOTE_D4, NOTE_C4, NOTE_G4, NOTE_F4,  // Selamat ulang tahun
+  NOTE_C4, NOTE_C4, NOTE_C5, NOTE_A4, NOTE_F4, NOTE_E4, NOTE_D4,  // Selamat ulang tahun (nama)
+  NOTE_B4, NOTE_B4, NOTE_A4, NOTE_F4, NOTE_G4, NOTE_F4   // Selamat ulang tahun
+};
+
+// Durasi setiap nada (dalam milidetik)
+// 4 = seperempat nada, 8 = seperdelapan nada, dst
+int noteDurations[] = {
+  4, 8, 4, 4, 4, 2,     // Selamat ulang tahun
+  4, 8, 4, 4, 4, 2,     // Selamat ulang tahun
+  4, 8, 4, 4, 4, 4, 2,  // Selamat ulang tahun (nama)
+  4, 8, 4, 4, 4, 2      // Selamat ulang tahun
+};
+
+int melodyLength = sizeof(melody) / sizeof(melody[0]);
+
+void setup() {
+  // Set semua pin LED sebagai OUTPUT
+  for (int i = 0; i < jumlahLED; i++) {
+    pinMode(ledPins[i], OUTPUT);
+  }
+  
+  // Set pin Buzzer sebagai OUTPUT
+  pinMode(buzzerPin, OUTPUT);
+}
+
+void loop() {
+  // Mainkan lagu "Selamat Ulang Tahun" sambil LED berkedip
+  playHappyBirthday();
+  
+  // Jeda 3 detik sebelum mengulang
+  delay(3000);
+}
+
+void playHappyBirthday() {
+  int currentLED = 0;  // LED yang sedang menyala
+  
+  // Mainkan setiap nada dalam melodi
+  for (int i = 0; i < melodyLength; i++) {
+    // Hitung durasi nada
+    // noteDuration = 1000ms / noteDurations[i]
+    // 4 = 1000/4 = 250ms (quarter note)
+    // 8 = 1000/8 = 125ms (eighth note)
+    int noteDuration = 1000 / noteDurations[i];
+    
+    // Matikan semua LED
+    for (int j = 0; j < jumlahLED; j++) {
+      digitalWrite(ledPins[j], LOW);
+    }
+    
+    // Nyalakan LED secara bergantian setiap nada
+    digitalWrite(ledPins[currentLED], HIGH);
+    currentLED = (currentLED + 1) % jumlahLED;  // Pindah ke LED berikutnya
+    
+    // Mainkan nada
+    tone(buzzerPin, melody[i], noteDuration);
+    
+    // Jeda antara nada (30% dari durasi nada)
+    int pauseBetweenNotes = noteDuration * 1.30;
+    delay(pauseBetweenNotes);
+    
+    // Hentikan nada
+    noTone(buzzerPin);
+  }
+  
+  // Matikan semua LED setelah lagu selesai
+  for (int j = 0; j < jumlahLED; j++) {
+    digitalWrite(ledPins[j], LOW);
+  }
+}
+
+/*
+ * CARA KERJA:
+ * 1. Buzzer memainkan lagu "Selamat Ulang Tahun" not demi not
+ * 2. Setiap nada dimainkan, 1 LED akan menyala bergantian
+ * 3. Setelah lagu selesai, jeda 3 detik, lalu mengulang
+ * 
+ * SUDAH DIKERASIN:
+ * ✅ Frekuensi nada dinaikkan ke oktaf tinggi (2x lipat dari sebelumnya)
+ * ✅ Nada tinggi = suara lebih keras dan nyaring
+ * ✅ Buzzer langsung ke pin (tanpa resistor)
+ * 
+ * TIPS TAMBAHAN UNTUK SUARA LEBIH KERAS:
+ * - Pastikan buzzer tidak tertutup tangan/benda saat bunyi
+ * - Gunakan buzzer piezo baru (buzzer lama kadang kurang keras)
+ * - Lepas penutup plastik buzzer jika ada
+ * - Dekatkan buzzer ke permukaan keras (meja) untuk resonansi
+ * 
+ * PENGATURAN TEMPO:
+ * - Ubah delay(3000) untuk mengatur jeda antar pengulangan
+ * - Ubah noteDuration * 1.30 untuk mengatur tempo
+ *   (1.30 = sedang, 1.50 = lambat, 1.10 = cepat)
+ */

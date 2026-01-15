@@ -1,0 +1,253 @@
+/*
+ * PROJECT: ALARM SENSOR GERAKAN + 4 LED INDIKATOR
+ * Deskripsi: Sistem deteksi jarak dengan 4 tingkat peringatan
+ *            LED dan buzzer berubah sesuai jarak objek
+ * 
+ * KOMPONEN YANG DIBUTUHKAN:
+ * - Arduino UNO
+ * - 1 Sensor Ultrasonik HC-SR04
+ * - 4 buah LED (warna bebas, rekomendasi: hijau, kuning, orange, merah)
+ * - 4 buah Resistor 220Ω
+ * - 1 Buzzer Piezoelektrik
+ * - Breadboard
+ * - Kabel Jumper
+ * 
+ * KONEKSI:
+ * Sensor Ultrasonik HC-SR04:
+ *   VCC  -> 5V Breadboard -> 5V Arduino
+ *   GND  -> GND Breadboard -> GND Arduino
+ *   TRIG -> Pin 5 Breadboard -> Pin 5 Arduino
+ *   ECHO -> Pin 6 Breadboard -> Pin 6 Arduino
+ * 
+ * LED (dengan resistor 220Ω):
+ *   LED 1 -> Pin 8  Breadboard -> Pin 8 Arduino (Resistor -> GND)
+ *   LED 2 -> Pin 9  Breadboard -> Pin 9 Arduino (Resistor -> GND)
+ *   LED 3 -> Pin 10 Breadboard -> Pin 10 Arduino (Resistor -> GND)
+ *   LED 4 -> Pin 11 Breadboard -> Pin 11 Arduino (Resistor -> GND)
+ * 
+ * Buzzer:
+ *   (+) -> Pin 13 Breadboard -> Pin 13 Arduino
+ *   (-) -> GND Arduino
+ */
+
+// Pin Sensor Ultrasonik
+const int trigPin = 5;
+const int echoPin = 6;
+
+// Pin LED (4 buah)
+const int led1Pin = 8;   // LED 1 (Hijau - Aman)
+const int led2Pin = 9;   // LED 2 (Kuning - Hati-hati)
+const int led3Pin = 10;  // LED 3 (Orange - Peringatan)
+const int led4Pin = 11;  // LED 4 (Merah - Bahaya)
+
+// Pin Buzzer
+const int buzzerPin = 13;
+
+// Variabel untuk pengukuran
+long duration;
+int distance;
+
+void setup() {
+  // Setup pin sensor
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  
+  // Setup pin LED
+  pinMode(led1Pin, OUTPUT);
+  pinMode(led2Pin, OUTPUT);
+  pinMode(led3Pin, OUTPUT);
+  pinMode(led4Pin, OUTPUT);
+  
+  // Setup pin buzzer
+  pinMode(buzzerPin, OUTPUT);
+  
+  // Setup Serial Monitor
+  Serial.begin(9600);
+  Serial.println("========================================");
+  Serial.println("SISTEM DETEKSI JARAK 4 TINGKAT");
+  Serial.println("========================================");
+  Serial.println();
+  
+  // Test LED (menyala semua lalu mati)
+  digitalWrite(led1Pin, HIGH);
+  digitalWrite(led2Pin, HIGH);
+  digitalWrite(led3Pin, HIGH);
+  digitalWrite(led4Pin, HIGH);
+  delay(500);
+  digitalWrite(led1Pin, LOW);
+  digitalWrite(led2Pin, LOW);
+  digitalWrite(led3Pin, LOW);
+  digitalWrite(led4Pin, LOW);
+  delay(500);
+  
+  Serial.println("Sistem siap!");
+  Serial.println();
+}
+
+void loop() {
+  // Ukur jarak dengan sensor
+  distance = measureDistance();
+  
+  // Tampilkan di Serial Monitor
+  Serial.print("Jarak: ");
+  Serial.print(distance);
+  Serial.print(" cm -> ");
+  
+  // TINGKAT 1: AMAN (>50 cm)
+  if (distance > 50) {
+    Serial.println("AMAN");
+    
+    // LED 1 menyala, LED lain mati
+    digitalWrite(led1Pin, HIGH);
+    digitalWrite(led2Pin, LOW);
+    digitalWrite(led3Pin, LOW);
+    digitalWrite(led4Pin, LOW);
+    
+    // Buzzer berbunyi pelan (rendah & lambat)
+    tone(buzzerPin, 500, 100);   // Nada rendah 500 Hz, durasi 100ms
+    delay(1000);                 // Interval lambat (1 detik)
+    noTone(buzzerPin);
+  }
+  
+  // TINGKAT 2: HATI-HATI (30-50 cm)
+  else if (distance > 30 && distance <= 50) {
+    Serial.println("HATI-HATI");
+    
+    // LED 1 & 2 menyala, LED 3 & 4 mati
+    digitalWrite(led1Pin, HIGH);
+    digitalWrite(led2Pin, HIGH);
+    digitalWrite(led3Pin, LOW);
+    digitalWrite(led4Pin, LOW);
+    
+    // Buzzer berbunyi sedang
+    tone(buzzerPin, 1000, 150);  // Nada sedang 1000 Hz, durasi 150ms
+    delay(500);                  // Interval sedang (0.5 detik)
+    noTone(buzzerPin);
+  }
+  
+  // TINGKAT 3: PERINGATAN (10-30 cm)
+  else if (distance > 10 && distance <= 30) {
+    Serial.println("PERINGATAN!");
+    
+    // LED 1, 2, & 3 menyala, LED 4 mati
+    digitalWrite(led1Pin, HIGH);
+    digitalWrite(led2Pin, HIGH);
+    digitalWrite(led3Pin, HIGH);
+    digitalWrite(led4Pin, LOW);
+    
+    // Buzzer berbunyi agak kencang
+    tone(buzzerPin, 1500, 200);  // Nada tinggi 1500 Hz, durasi 200ms
+    delay(300);                  // Interval cepat (0.3 detik)
+    noTone(buzzerPin);
+  }
+  
+  // TINGKAT 4: BAHAYA (<10 cm)
+  else if (distance <= 10) {
+    Serial.println(">>> BAHAYA! <<<");
+    
+    // LED 4 kedip-kedip kencang, LED lain menyala terus
+    digitalWrite(led1Pin, HIGH);
+    digitalWrite(led2Pin, HIGH);
+    digitalWrite(led3Pin, HIGH);
+    
+    // Kedipkan LED 4 dan buzzer kencang
+    for (int i = 0; i < 5; i++) {
+      digitalWrite(led4Pin, HIGH);
+      tone(buzzerPin, 2500);     // Nada sangat tinggi 2500 Hz (kencang!)
+      delay(50);                 // Kedip cepat
+      
+      digitalWrite(led4Pin, LOW);
+      noTone(buzzerPin);
+      delay(50);
+    }
+  }
+  
+  // Jika tidak ada objek terdeteksi
+  else {
+    Serial.println("Tidak ada objek");
+    
+    // Matikan semua LED dan buzzer
+    digitalWrite(led1Pin, LOW);
+    digitalWrite(led2Pin, LOW);
+    digitalWrite(led3Pin, LOW);
+    digitalWrite(led4Pin, LOW);
+    noTone(buzzerPin);
+    
+    delay(200);
+  }
+}
+
+// Fungsi untuk mengukur jarak
+int measureDistance() {
+  // Kirim pulsa TRIG
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Baca pulsa ECHO
+  duration = pulseIn(echoPin, HIGH, 30000); // Timeout 30ms
+  
+  // Hitung jarak (cm)
+  int dist = duration * 0.0343 / 2;
+  
+  // Filter jarak yang tidak masuk akal
+  if (dist <= 0 || dist > 400) {
+    return 999; // Return nilai besar jika gagal ukur
+  }
+  
+  return dist;
+}
+
+/*
+ * CARA KERJA SISTEM 4 TINGKAT:
+ * 
+ * ┌─────────────┬──────────────┬─────────────┬──────────────────┐
+ * │   JARAK     │     LED      │   BUZZER    │     STATUS       │
+ * ├─────────────┼──────────────┼─────────────┼──────────────────┤
+ * │   > 50 cm   │ ● ○ ○ ○      │ Beep pelan  │ AMAN ✓          │
+ * │             │ (LED 1 saja) │ (lambat)    │                  │
+ * ├─────────────┼──────────────┼─────────────┼──────────────────┤
+ * │ 30-50 cm    │ ● ● ○ ○      │ Beep sedang │ HATI-HATI ⚠     │
+ * │             │ (LED 1 & 2)  │ (sedang)    │                  │
+ * ├─────────────┼──────────────┼─────────────┼──────────────────┤
+ * │ 10-30 cm    │ ● ● ● ○      │ Beep kencang│ PERINGATAN ⚠⚠   │
+ * │             │ (LED 1,2,3)  │ (cepat)     │                  │
+ * ├─────────────┼──────────────┼─────────────┼──────────────────┤
+ * │   < 10 cm   │ ● ● ● 💥     │ ALARM KERAS │ BAHAYA!!! 🚨    │
+ * │             │ (LED 4 kedip)│ (terus!)    │                  │
+ * └─────────────┴──────────────┴─────────────┴──────────────────┘
+ * 
+ * EFEK VISUAL:
+ * 
+ * Tingkat 1 (>50 cm):
+ *   LED: ●────────    Buzzer: beep........beep........
+ * 
+ * Tingkat 2 (30-50 cm):
+ *   LED: ●●───────    Buzzer: beep....beep....beep
+ * 
+ * Tingkat 3 (10-30 cm):
+ *   LED: ●●●──────    Buzzer: beep.beep.beep.beep
+ * 
+ * Tingkat 4 (<10 cm):
+ *   LED: ●●●💥💥💥    Buzzer: BEEPBEEPBEEPBEEP!!!
+ *        (kedip cepat!)
+ * 
+ * REKOMENDASI WARNA LED:
+ * - LED 1 (Pin 8):  Hijau  (Aman)
+ * - LED 2 (Pin 9):  Kuning (Hati-hati)
+ * - LED 3 (Pin 10): Orange (Peringatan)
+ * - LED 4 (Pin 11): Merah  (Bahaya)
+ * 
+ * PENGGUNAAN:
+ * - Sensor parkir mobil/motor
+ * - Sistem keamanan anti tabrakan
+ * - Alarm anti pencuri
+ * - Deteksi jarak untuk robot
+ * 
+ * TIPS:
+ * - Buka Serial Monitor untuk melihat status real-time
+ * - Ubah threshold jarak sesuai kebutuhan
+ * - Test dengan menaruh objek di berbagai jarak
+ */
