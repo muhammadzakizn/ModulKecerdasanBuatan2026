@@ -567,6 +567,65 @@
             .founder-card {
                 page-break-inside: avoid;
             }
+
+            /* CSS for Quote with Photo */
+            .quote-container {
+                display: flex;
+                align-items: flex-start;
+                gap: 15px;
+                margin: 20px 0;
+                background: #f8f9fa;
+                border-left: 4px solid var(--accent-blue);
+                padding: 15px;
+                border-radius: 0 8px 8px 0;
+                page-break-inside: avoid;
+            }
+
+            .expert-photo-card {
+                flex: 0 0 100px;
+                text-align: center;
+                font-size: 10px;
+                color: #666;
+            }
+
+            .expert-photo-card img {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 3px solid white;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                margin-bottom: 5px;
+            }
+
+            .expert-photo-card .source-url {
+                display: block;
+                font-size: 8px;
+                color: #999;
+                text-decoration: none;
+                margin-top: 2px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100px;
+            }
+
+            .quote-content {
+                flex: 1;
+                font-family: 'Georgia', serif;
+                font-style: italic;
+                color: #2c3e50;
+                line-height: 1.6;
+            }
+
+            .quote-content .author {
+                display: block;
+                margin-top: 10px;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 0.9em;
+                color: var(--primary-blue);
+            }
         }
     </style>
 </head>
@@ -592,6 +651,8 @@
         <div class="toc-page">
             <h2 class="toc-title">DAFTAR ISI</h2>
             <ul class="toc-list">
+                <li class="toc-item main"><span>DAFTAR GAMBAR</span><span class="toc-dots"></span><span
+                        class="toc-page-num">iii</span></li>
                 <li class="toc-item main"><span>BAB I — PENDAHULUAN</span><span class="toc-dots"></span><span
                         class="toc-page-num">1</span></li>
                 <li class="toc-item sub"><span>1.1 Latar Belakang & Sejarah Arduino</span><span
@@ -607,20 +668,44 @@
                 <li class="toc-item main"><span>BAB III — KOMPONEN-KOMPONEN ARDUINO</span><span
                         class="toc-dots"></span><span class="toc-page-num">10</span></li>
                 <li class="toc-item main"><span>BAB IV — PROJECT PEMBELAJARAN</span><span class="toc-dots"></span><span
-                        class="toc-page-num">25</span></li>
+                        class="toc-page-num">15</span></li>
                 <li class="toc-item main"><span>BAB V — PENUTUP</span><span class="toc-dots"></span><span
-                        class="toc-page-num">22</span></li>
-                <li class="toc-item sub"><span>5.1 Kesimpulan</span><span class="toc-dots"></span><span
-                        class="toc-page-num">22</span></li>
-                <li class="toc-item sub"><span>5.2 Saran</span><span class="toc-dots"></span><span
                         class="toc-page-num">22</span></li>
                 <li class="toc-item main"><span>DAFTAR PUSTAKA</span><span class="toc-dots"></span><span
                         class="toc-page-num">23</span></li>
                 <li class="toc-item main"><span>LAMPIRAN</span><span class="toc-dots"></span><span
                         class="toc-page-num">25</span></li>
+                <li class="toc-item main"><span>DAFTAR SUMBER GAMBAR</span><span class="toc-dots"></span><span
+                        class="toc-page-num">26</span></li>
             </ul>
         </div>
         <span class="page-number left">ii</span>
+    </div>
+
+    <!-- ==================== PAGE 4: DAFTAR GAMBAR ==================== -->
+    <div class="page content-page">
+        <div class="toc-page">
+            <h2 class="toc-title">DAFTAR GAMBAR</h2>
+            <ul class="toc-list">
+                <li class="toc-item sub"><span>Gambar 1.1 — Simon Monk (Author)</span><span
+                        class="toc-dots"></span><span class="toc-page-num">3</span></li>
+                <li class="toc-item sub"><span>Gambar 1.2 — Tom Igoe (Co-founder Arduino)</span><span
+                        class="toc-dots"></span><span class="toc-page-num">3</span></li>
+                <li class="toc-item sub"><span>Gambar 1.3 — Stuart Russell & Peter Norvig (AI Experts)</span><span
+                        class="toc-dots"></span><span class="toc-page-num">4</span></li>
+                <li class="toc-item sub"><span>Gambar 2.1 — Arduino UNO Board</span><span class="toc-dots"></span><span
+                        class="toc-page-num">6</span></li>
+                <li class="toc-item sub"><span>Gambar 3.1 — Breadboard</span><span class="toc-dots"></span><span
+                        class="toc-page-num">10</span></li>
+                <li class="toc-item sub"><span>Gambar 3.2 — LED & Resistor</span><span class="toc-dots"></span><span
+                        class="toc-page-num">11</span></li>
+                <li class="toc-item sub"><span>Gambar 3.3 — Sensor Ultrasonik HC-SR04</span><span
+                        class="toc-dots"></span><span class="toc-page-num">13</span></li>
+                <li class="toc-item sub"><span>Gambar 5.1 — Massimo Banzi (Co-founder Arduino)</span><span
+                        class="toc-dots"></span><span class="toc-page-num">22</span></li>
+            </ul>
+        </div>
+        <span class="page-number right">iii</span>
     </div>
 
     <!-- ==================== BAB I: PENDAHULUAN ==================== -->
@@ -746,18 +831,35 @@
                 <span class="author">— Arduino.cc Official Definition (2024)</span>
             </div>
 
-            <div class="academic-quote">
-                "Arduino represents a paradigm shift in embedded systems education, democratizing access to
-                microcontroller technology through its simplified programming environment and affordable hardware."
-                <span class="author">— Monk, S. (2016). Programming Arduino: Getting Started with Sketches. McGraw-Hill
-                    Education</span>
+            <div class="quote-container">
+                <div class="expert-photo-card">
+                    <img src="images/experts/simon_monk.jpg" alt="Simon Monk">
+                    <b>Simon Monk</b><br>Author
+                    <a href="https://github.com/simonmonk" class="source-url" target="_blank">github.com/simonmonk</a>
+                    <div style="margin-top:2px; font-weight:bold; color:#333;">Gambar 1.1</div>
+                </div>
+                <div class="quote-content">
+                    "Arduino represents a paradigm shift in embedded systems education, democratizing access to
+                    microcontroller technology through its simplified programming environment and affordable hardware."
+                    <span class="author">— Monk, S. (2016). Programming Arduino: Getting Started with Sketches.
+                        McGraw-Hill
+                        Education</span>
+                </div>
             </div>
 
-            <div class="academic-quote">
-                "Physical computing allows humans to communicate with digital systems through tangible interfaces,
-                creating a more intuitive and engaging interaction paradigm. Arduino exemplifies this approach."
-                <span class="author">— Igoe, T. & O'Sullivan, D. (2004). Physical Computing. MIT Media Lab / NYU
-                    ITP</span>
+            <div class="quote-container">
+                <div class="expert-photo-card">
+                    <img src="images/experts/tom_igoe.jpg" alt="Tom Igoe">
+                    <b>Tom Igoe</b><br>Co-founder
+                    <a href="http://tisch.nyu.edu" class="source-url" target="_blank">tisch.nyu.edu</a>
+                    <div style="margin-top:2px; font-weight:bold; color:#333;">Gambar 1.2</div>
+                </div>
+                <div class="quote-content">
+                    "Physical computing allows humans to communicate with digital systems through tangible interfaces,
+                    creating a more intuitive and engaging interaction paradigm. Arduino exemplifies this approach."
+                    <span class="author">— Igoe, T. & O'Sullivan, D. (2004). Physical Computing. MIT Media Lab / NYU
+                        ITP</span>
+                </div>
             </div>
 
             <h3 class="subsection-title">Definisi Mikrokontroler</h3>
@@ -795,12 +897,25 @@
             <p>Menurut <strong>Stuart Russell & Peter Norvig (2020)</strong> dalam buku "Artificial Intelligence: A
                 Modern Approach" yang digunakan sebagai textbook standar di Harvard, MIT, dan Stanford:</p>
 
-            <div class="academic-quote">
-                "Intelligent agents must be able to perceive their environment, reason about what they perceive, and
-                take actions that affect that environment. The sense-plan-act paradigm is fundamental to understanding
-                how AI systems interact with the physical world."
-                <span class="author">— Russell, S., & Norvig, P. (2020). Artificial Intelligence: A Modern Approach. 4th
-                    Edition</span>
+            <div class="quote-container">
+                <div class="expert-photo-card" style="flex: 0 0 110px;">
+                    <img src="images/experts/stuart_russell.webp" alt="Stuart Russell"
+                        style="width:45px; height:45px; display:inline-block;">
+                    <img src="images/experts/peter_norvig.jpg" alt="Peter Norvig"
+                        style="width:45px; height:45px; display:inline-block;">
+                    <b>Russell & Norvig</b><br>AI Experts
+                    <a href="https://www.artificial-intelligence.blog" class="source-url"
+                        target="_blank">artificial-intelligence.blog</a>
+                    <div style="margin-top:2px; font-weight:bold; color:#333;">Gambar 1.3</div>
+                </div>
+                <div class="quote-content">
+                    "Intelligent agents must be able to perceive their environment, reason about what they perceive, and
+                    take actions that affect that environment. The sense-plan-act paradigm is fundamental to
+                    understanding
+                    how AI systems interact with the physical world."
+                    <span class="author">— Russell, S., & Norvig, P. (2020). Artificial Intelligence: A Modern Approach.
+                        4th Edition</span>
+                </div>
             </div>
 
             <p>Arduino menyediakan infrastruktur hardware yang memungkinkan implementasi ketiga aspek AI:</p>
@@ -1664,10 +1779,18 @@ void loop() {
                     setiap pembelajaran. Selamat berkarya dan terus berinovasi!</p>
             </div>
 
-            <div class="academic-quote">
-                "The best way to learn electronics is to build things. Arduino makes this possible for everyone,
-                from beginners to experts."
-                <span class="author">— Banzi, M. (2011). Getting Started with Arduino. O'Reilly Media</span>
+            <div class="quote-container">
+                <div class="expert-photo-card">
+                    <img src="images/experts/massimo_banzi.jpg" alt="Massimo Banzi">
+                    <b>Massimo Banzi</b><br>Co-founder
+                    <a href="https://commons.wikimedia.org" class="source-url" target="_blank">commons.wikimedia.org</a>
+                    <div style="margin-top:2px; font-weight:bold; color:#333;">Gambar 5.1</div>
+                </div>
+                <div class="quote-content">
+                    "The best way to learn electronics is to build things. Arduino makes this possible for everyone,
+                    from beginners to experts."
+                    <span class="author">— Banzi, M. (2011). Getting Started with Arduino. O'Reilly Media</span>
+                </div>
             </div>
         </div>
         <span class="page-number left">22</span>
@@ -1824,6 +1947,28 @@ void loop() {
             </ul>
         </div>
         <span class="page-number left">25</span>
+    </div>
+
+    <!-- ==================== PAGE 26: DAFTAR SUMBER GAMBAR ==================== -->
+    <div class="page content-page">
+        <div class="page-content">
+            <div class="page-header">Modul Kecerdasan Buatan — Arduino</div>
+            <h1 class="chapter-title">DAFTAR SUMBER GAMBAR</h1>
+
+            <h3 class="subsection-title">Figures & Expert Photos</h3>
+            <ul style="font-size: 10px; word-break: break-all;">
+                <li><strong>Gambar 1.1 Simon Monk:</strong> https://github.com/simonmonk</li>
+                <li><strong>Gambar 1.2 Tom Igoe:</strong> http://tisch.nyu.edu/about/directory/itp/3558397.html</li>
+                <li><strong>Gambar 1.3 Stuart Russell:</strong>
+                    https://www.artificial-intelligence.blog/people-in-ai/stuart-russell</li>
+                <li><strong>Gambar 1.3 Peter Norvig:</strong> https://www.xprize.org/people/peter-norvig</li>
+                <li><strong>Gambar 5.1 Massimo Banzi:</strong> https://commons.wikimedia.org/wiki/File:Massimo_banzi.jpg
+                </li>
+                <li><strong>Arduino UNO Board:</strong> https://store.arduino.cc/products/arduino-uno-rev3</li>
+                <li><strong>Sensors & Components:</strong> Diagram by Fritzing & Arduino Docs</li>
+            </ul>
+        </div>
+        <span class="page-number right">26</span>
     </div>
 
     <!-- ==================== BACK COVER (dari PDF user) ==================== -->
