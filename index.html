@@ -111,24 +111,30 @@
         /* ==================== GRADIENT CORNER DECORATION ==================== */
         .content-page {
             position: relative;
+            overflow: hidden;
         }
 
         .content-page::before {
             content: '';
             position: absolute;
-            top: -30%;
-            left: -20%;
-            width: 200px;
-            height: 250px;
+            top: -60px;
+            left: -60px;
+            width: 180px;
+            height: 180px;
             background: url('images/gradient.png') no-repeat center center;
             background-size: contain;
             transform: rotate(-30deg);
             z-index: 0;
             pointer-events: none;
-            opacity: 0.85;
+            opacity: 0.7;
         }
 
         .content-page .page-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .content-page .toc-page {
             position: relative;
             z-index: 1;
         }
@@ -1396,7 +1402,201 @@ void loop() {
         <span class="page-number right">19</span>
     </div>
 
-    <!-- ==================== DAFTAR PUSTAKA ==================== -->
+    <!-- ==================== PROJECT 3: SERVO MOTOR ==================== -->
+    <div class="page content-page">
+        <div class="page-content">
+            <div class="page-header">BAB IV — Project Pembelajaran</div>
+
+            <h2 class="section-title">4.4 Project 3: Kontrol Motor Servo</h2>
+
+            <div class="info-box">
+                <h4>📋 Deskripsi Project</h4>
+                <p>Motor servo bergerak dari 0° ke 90° ke 180° secara berulang. Project ini mendemonstrasikan penggunaan
+                    library Servo dan kontrol posisi motor.</p>
+            </div>
+
+            <h3 class="subsection-title">4.4.1 Komponen yang Dibutuhkan</h3>
+            <table>
+                <tr>
+                    <th>Komponen</th>
+                    <th>Jumlah</th>
+                    <th>Keterangan</th>
+                </tr>
+                <tr>
+                    <td>Arduino UNO</td>
+                    <td>1</td>
+                    <td>Mikrokontroler utama</td>
+                </tr>
+                <tr>
+                    <td>Motor Servo SG90</td>
+                    <td>1</td>
+                    <td>Micro servo 180°</td>
+                </tr>
+                <tr>
+                    <td>Kabel Jumper</td>
+                    <td>3</td>
+                    <td>Male-to-male</td>
+                </tr>
+            </table>
+
+            <h3 class="subsection-title">4.4.2 Skema Koneksi Hardware</h3>
+            <div class="info-box">
+                <h4>🔌 Wiring Motor Servo</h4>
+                <p>
+                    <strong>Kabel Kuning (Sinyal):</strong> → Pin 4 Arduino<br>
+                    <strong>Kabel Merah (VCC):</strong> → 5V Arduino<br>
+                    <strong>Kabel Coklat (GND):</strong> → GND Arduino
+                </p>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Perhatian</h4>
+                <p>
+                    ✅ Gunakan library Servo bawaan Arduino IDE<br>
+                    ✅ Servo SG90 bekerja pada rentang 0-180 derajat<br>
+                    ❌ Jangan paksa servo melewati batas mekanis
+                </p>
+            </div>
+
+            <h3 class="subsection-title">4.4.3 Kode Program Servo (Tested)</h3>
+            <pre><code>/*
+ * PROGRAM TEST SERVO SEDERHANA
+ * Koneksi:
+ * - Kabel Kuning  -> Pin 4
+ * - Kabel Merah   -> 5V
+ * - Kabel Coklat  -> GND
+ */
+
+#include <Servo.h>  // Library Servo wajib
+
+Servo myServo;  // Membuat objek servo
+
+void setup() {
+  myServo.attach(4);  // Servo di Pin 4
+}
+
+void loop() {
+  // 1. Gerakkan ke 0 derajat (Posisi awal)
+  myServo.write(0);
+  delay(1000);
+
+  // 2. Gerakkan ke 90 derajat (Posisi tengah)
+  myServo.write(90);
+  delay(1000);
+
+  // 3. Gerakkan ke 180 derajat (Posisi akhir)
+  myServo.write(180);
+  delay(1000);
+}</code></pre>
+        </div>
+        <span class="page-number left">20</span>
+    </div>
+
+    <!-- ==================== PROJECT 4: BUTTON + LED ==================== -->
+    <div class="page content-page">
+        <div class="page-content">
+            <div class="page-header">BAB IV — Project Pembelajaran</div>
+
+            <h2 class="section-title">4.5 Project 4: Push Button dengan LED</h2>
+
+            <div class="info-box">
+                <h4>📋 Deskripsi Project</h4>
+                <p>LED menyala saat tombol ditekan dan mati saat tombol dilepas. Project ini mendemonstrasikan pembacaan
+                    input digital dan penggunaan INPUT_PULLUP.</p>
+            </div>
+
+            <h3 class="subsection-title">4.5.1 Komponen yang Dibutuhkan</h3>
+            <table>
+                <tr>
+                    <th>Komponen</th>
+                    <th>Jumlah</th>
+                    <th>Keterangan</th>
+                </tr>
+                <tr>
+                    <td>Arduino UNO</td>
+                    <td>1</td>
+                    <td>Mikrokontroler utama</td>
+                </tr>
+                <tr>
+                    <td>LED</td>
+                    <td>1</td>
+                    <td>Warna bebas</td>
+                </tr>
+                <tr>
+                    <td>Resistor 220Ω</td>
+                    <td>1</td>
+                    <td>Untuk LED</td>
+                </tr>
+                <tr>
+                    <td>Push Button</td>
+                    <td>1</td>
+                    <td>Tactile switch</td>
+                </tr>
+                <tr>
+                    <td>Breadboard + Jumper</td>
+                    <td>1 set</td>
+                    <td>Kabel koneksi</td>
+                </tr>
+            </table>
+
+            <h3 class="subsection-title">4.5.2 Skema Koneksi Hardware</h3>
+            <div class="info-box">
+                <h4>🔌 Wiring Diagram</h4>
+                <p>
+                    <strong>LED (+):</strong> Pin 2 → Resistor 220Ω → GND<br>
+                    <strong>Button (satu kaki):</strong> Pin 3 Arduino<br>
+                    <strong>Button (kaki lain):</strong> GND Arduino
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h4>💡 Tentang INPUT_PULLUP</h4>
+                <p>
+                    Mode INPUT_PULLUP mengaktifkan resistor internal Arduino (~20kΩ).<br>
+                    <strong>Tanpa tombol ditekan:</strong> Pin membaca HIGH<br>
+                    <strong>Tombol ditekan:</strong> Pin membaca LOW (terhubung ke GND)<br>
+                    <em>Logika terbalik: LOW = ditekan, HIGH = tidak ditekan</em>
+                </p>
+            </div>
+
+            <h3 class="subsection-title">4.5.3 Kode Program Button+LED (Tested)</h3>
+            <pre><code>/*
+ * PROJECT: Button dengan LED
+ * LED -> Pin 2 (dengan resistor 220Ω)
+ * Button -> Pin 3 (ke GND)
+ */
+
+const int pinLED = 2;
+const int pinButton = 3;
+
+void setup() {
+  pinMode(pinLED, OUTPUT);
+  // INPUT_PULLUP: resistor internal aktif
+  pinMode(pinButton, INPUT_PULLUP);
+}
+
+void loop() {
+  // Baca status tombol
+  // LOW = Ditekan, HIGH = Tidak ditekan
+  int statusButton = digitalRead(pinButton);
+
+  if (statusButton == LOW) {
+    digitalWrite(pinLED, HIGH); // LED Menyala
+  } else {
+    digitalWrite(pinLED, LOW);  // LED Mati
+  }
+}</code></pre>
+
+            <div class="academic-quote">
+                "Input devices like buttons provide the essential human-machine interface in embedded systems,
+                enabling users to send discrete signals to microcontrollers."
+                <span class="author">— Monk, S. (2016). Programming Arduino. McGraw-Hill Education</span>
+            </div>
+        </div>
+        <span class="page-number right">21</span>
+    </div>
+
+
     <div class="page content-page">
         <div class="page-content">
             <div class="page-header">Modul Kecerdasan Buatan — Arduino</div>
