@@ -30,7 +30,7 @@
 
         @page {
             size: A4;
-            margin: 1.5cm 2cm;
+            margin: 0;
         }
 
         body {
@@ -50,8 +50,9 @@
             padding: 0;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             page-break-after: always;
+            page-break-inside: avoid;
             position: relative;
-            overflow: hidden;
+            box-sizing: border-box;
         }
 
         .page:last-child {
