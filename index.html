@@ -117,13 +117,13 @@
         .content-page::before {
             content: '';
             position: absolute;
-            top: -60px;
-            left: -60px;
+            top: -40px;
+            left: -50px;
             width: 180px;
             height: 180px;
             background: url('images/gradient.png') no-repeat center center;
             background-size: contain;
-            transform: rotate(-30deg);
+            transform: rotate(-15deg);
             z-index: 0;
             pointer-events: none;
             opacity: 0.7;
@@ -520,6 +520,8 @@
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
             z-index: 1000;
             transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .print-btn:hover {
@@ -569,7 +571,8 @@
 </head>
 
 <body>
-    <button class="print-btn" onclick="window.print()">📥 Download PDF</button>
+    <a href="modul-arduino.pdf" download="Modul-Kecerdasan-Buatan-Arduino-2026.pdf" class="print-btn">📥 Download
+        PDF</a>
 
     <!-- ==================== PAGE 1: FRONT COVER (dari PDF user) ==================== -->
     <div class="page cover-page">
@@ -604,12 +607,16 @@
                         class="toc-dots"></span><span class="toc-page-num">10</span></li>
                 <li class="toc-item main"><span>BAB IV — PROJECT PEMBELAJARAN</span><span class="toc-dots"></span><span
                         class="toc-page-num">25</span></li>
-                <li class="toc-item main"><span>BAB V — INTEGRASI ARDUINO & AI</span><span class="toc-dots"></span><span
-                        class="toc-page-num">35</span></li>
+                <li class="toc-item main"><span>BAB V — PENUTUP</span><span class="toc-dots"></span><span
+                        class="toc-page-num">22</span></li>
+                <li class="toc-item sub"><span>5.1 Kesimpulan</span><span class="toc-dots"></span><span
+                        class="toc-page-num">22</span></li>
+                <li class="toc-item sub"><span>5.2 Saran</span><span class="toc-dots"></span><span
+                        class="toc-page-num">22</span></li>
                 <li class="toc-item main"><span>DAFTAR PUSTAKA</span><span class="toc-dots"></span><span
-                        class="toc-page-num">42</span></li>
+                        class="toc-page-num">23</span></li>
                 <li class="toc-item main"><span>LAMPIRAN</span><span class="toc-dots"></span><span
-                        class="toc-page-num">45</span></li>
+                        class="toc-page-num">25</span></li>
             </ul>
         </div>
         <span class="page-number left">ii</span>
@@ -1594,6 +1601,75 @@ void loop() {
             </div>
         </div>
         <span class="page-number right">21</span>
+    </div>
+
+    <!-- ==================== BAB V: PENUTUP ==================== -->
+    <div class="page content-page">
+        <div class="page-content">
+            <div class="page-header">Modul Kecerdasan Buatan — Arduino</div>
+            <h1 class="chapter-title">BAB V<br>PENUTUP</h1>
+
+            <h2 class="section-title">5.1 Kesimpulan</h2>
+            <p>Berdasarkan pembahasan dalam modul ini, dapat disimpulkan beberapa hal penting sebagai berikut:</p>
+
+            <ol>
+                <li><strong>Arduino sebagai Platform Pembelajaran AI:</strong> Arduino merupakan platform yang ideal
+                    untuk mempelajari konsep dasar Kecerdasan Buatan (AI) karena sifatnya yang open-source, terjangkau,
+                    dan didukung komunitas global yang besar.</li>
+
+                <li><strong>Integrasi Hardware dan Software:</strong> Pemrograman mikrokontroler Arduino memungkinkan
+                    mahasiswa memahami hubungan antara kode program dengan respons hardware secara langsung melalui
+                    sensor dan aktuator.</li>
+
+                <li><strong>Implementasi Sistem Cerdas:</strong> Dengan project-project seperti sensor parkir
+                    ultrasonik, running LED, servo motor, dan button control, mahasiswa dapat mengimplementasikan logika
+                    pengambilan keputusan sederhana yang menjadi dasar sistem AI.</li>
+
+                <li><strong>Keterampilan Praktis:</strong> Modul ini membekali mahasiswa dengan keterampilan praktis
+                    dalam merangkai komponen elektronik, debugging hardware/software, dan pemahaman prinsip kerja
+                    mikrokontroler.</li>
+
+                <li><strong>Fondasi untuk Pengembangan Lanjutan:</strong> Pengetahuan yang diperoleh dari modul ini
+                    menjadi fondasi untuk mempelajari topik AI yang lebih kompleks seperti Machine Learning, Computer
+                    Vision, dan IoT.</li>
+            </ol>
+
+            <h2 class="section-title">5.2 Saran</h2>
+            <p>Untuk pengembangan lebih lanjut dari modul dan penerapan pembelajaran ini, disarankan:</p>
+
+            <ol>
+                <li><strong>Eksplorasi Sensor Tambahan:</strong> Mahasiswa disarankan untuk bereksperimen dengan sensor
+                    lain seperti DHT11 (suhu/kelembaban), MQ-2 (gas), atau sensor warna untuk memperluas pemahaman
+                    tentang input data.</li>
+
+                <li><strong>Integrasi dengan Platform IoT:</strong> Coba integrasikan project Arduino dengan platform
+                    IoT seperti Blynk, ThingSpeak, atau MQTT untuk monitoring jarak jauh dan pengumpulan data.</li>
+
+                <li><strong>Penerapan Machine Learning:</strong> Gunakan Arduino Nano 33 BLE Sense dengan TensorFlow
+                    Lite untuk mengimplementasikan model Machine Learning sederhana seperti gesture recognition atau
+                    voice command.</li>
+
+                <li><strong>Dokumentasi Project:</strong> Mahasiswa dianjurkan untuk mendokumentasikan setiap project
+                    yang dibuat dalam bentuk laporan atau video tutorial untuk berbagi pengetahuan.</li>
+
+                <li><strong>Kolaborasi Tim:</strong> Kerjakan project dalam tim untuk mengembangkan kemampuan kolaborasi
+                    dan problem-solving yang penting dalam dunia industri.</li>
+            </ol>
+
+            <div class="info-box">
+                <h4>💡 Pesan Penutup</h4>
+                <p>Pembelajaran mikrokontroler Arduino adalah langkah awal yang sangat baik untuk memahami dunia
+                    embedded systems dan AI. Teruslah bereksperimen, jangan takut gagal, dan selalu dokumentasikan
+                    setiap pembelajaran. Selamat berkarya dan terus berinovasi!</p>
+            </div>
+
+            <div class="academic-quote">
+                "The best way to learn electronics is to build things. Arduino makes this possible for everyone,
+                from beginners to experts."
+                <span class="author">— Banzi, M. (2011). Getting Started with Arduino. O'Reilly Media</span>
+            </div>
+        </div>
+        <span class="page-number left">22</span>
     </div>
 
 
