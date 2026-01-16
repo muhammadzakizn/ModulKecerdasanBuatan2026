@@ -2618,204 +2618,21 @@ void loop() {
                                                                             alt="Cover Belakang Modul - Deskripsi modul dan QR code akses online">
                                                                     </div>
 
-                                                                    <!-- StPageFlip CDN -->
-                                                                    <script
-                                                                        src="https://unpkg.com/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
-                                                                    <!-- jsPDF for PDF generation -->
-                                                                    <script
-                                                                        src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-                                                                    <!-- html2canvas for capturing pages -->
-                                                                    <script
-                                                                        src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-                                                                    <style>
-                                                                        /* Flipbook Mode Styles */
-                                                                        .flipbook-container {
-                                                                            display: none;
-                                                                            position: fixed;
-                                                                            top: 0;
-                                                                            left: 0;
-                                                                            width: 100vw;
-                                                                            height: 100vh;
-                                                                            z-index: 9999;
-                                                                            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-                                                                            justify-content: center;
-                                                                            align-items: center;
-                                                                            flex-direction: column;
-                                                                        }
-
-                                                                        .flipbook-container.active {
-                                                                            display: flex;
-                                                                        }
-
-                                                                        #flipbook {
-                                                                            margin: 20px auto;
-                                                                        }
-
-                                                                        .flipbook-toolbar {
-                                                                            position: fixed;
-                                                                            bottom: 20px;
-                                                                            left: 50%;
-                                                                            transform: translateX(-50%);
-                                                                            display: flex;
-                                                                            gap: 10px;
-                                                                            background: rgba(255, 255, 255, 0.95);
-                                                                            padding: 12px 20px;
-                                                                            border-radius: 50px;
-                                                                            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-                                                                            z-index: 10000;
-                                                                        }
-
-                                                                        .flipbook-toolbar button {
-                                                                            background: #3b82f6;
-                                                                            color: white;
-                                                                            border: none;
-                                                                            padding: 10px 18px;
-                                                                            border-radius: 25px;
-                                                                            cursor: pointer;
-                                                                            font-size: 14px;
-                                                                            font-weight: 500;
-                                                                            transition: all 0.3s ease;
-                                                                        }
-
-                                                                        .flipbook-toolbar button:hover {
-                                                                            background: #1e3a5f;
-                                                                            transform: translateY(-2px);
-                                                                        }
-
-                                                                        .flipbook-toolbar button.nav-btn {
-                                                                            background: #333;
-                                                                            padding: 10px 14px;
-                                                                        }
-
-                                                                        .flipbook-toolbar .page-indicator {
-                                                                            background: #f0f0f0;
-                                                                            color: #333;
-                                                                            padding: 10px 16px;
-                                                                            border-radius: 25px;
-                                                                            font-weight: 600;
-                                                                            min-width: 80px;
-                                                                            text-align: center;
-                                                                        }
-
-                                                                        .mode-toggle {
-                                                                            position: fixed;
-                                                                            top: 20px;
-                                                                            right: 20px;
-                                                                            z-index: 10001;
-                                                                            display: flex;
-                                                                            gap: 10px;
-                                                                            flex-wrap: wrap;
-                                                                        }
-
-                                                                        .mode-toggle button {
-                                                                            background: rgba(255, 255, 255, 0.95);
-                                                                            border: 2px solid #3b82f6;
-                                                                            color: #3b82f6;
-                                                                            padding: 10px 16px;
-                                                                            border-radius: 25px;
-                                                                            cursor: pointer;
-                                                                            font-weight: 600;
-                                                                            transition: all 0.3s;
-                                                                            font-size: 13px;
-                                                                        }
-
-                                                                        .mode-toggle button:hover,
-                                                                        .mode-toggle button.active {
-                                                                            background: #3b82f6;
-                                                                            color: white;
-                                                                        }
-
-                                                                        .flip-page {
-                                                                            background: white;
-                                                                            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-                                                                            overflow: hidden;
-                                                                            position: relative;
-                                                                            box-sizing: border-box;
-                                                                        }
-
-                                                                        .flip-page .page-content {
-                                                                            position: relative;
-                                                                            height: 100%;
-                                                                            overflow: hidden;
-                                                                            padding: 15px;
-                                                                            box-sizing: border-box;
-                                                                            font-size: 9pt;
-                                                                            line-height: 1.4;
-                                                                        }
-
-                                                                        .flip-page .page-number {
-                                                                            position: absolute;
-                                                                            bottom: 8px;
-                                                                            font-size: 9pt;
-                                                                        }
-
-                                                                        .flip-page h1,
-                                                                        .flip-page h2,
-                                                                        .flip-page h3 {
-                                                                            margin-top: 8px;
-                                                                            margin-bottom: 6px;
-                                                                        }
-
-                                                                        .flip-page p {
-                                                                            margin-bottom: 6px;
-                                                                        }
-
-                                                                        .flip-page table {
-                                                                            font-size: 8pt;
-                                                                        }
-
-                                                                        .flip-page pre {
-                                                                            font-size: 7pt;
-                                                                            padding: 6px;
-                                                                        }
-
-                                                                        .flip-page img {
-                                                                            max-width: 100%;
-                                                                            max-height: 200px;
-                                                                            object-fit: contain;
-                                                                        }
-
-                                                                        @media (max-width: 768px) {
-                                                                            .mode-toggle {
-                                                                                top: 10px;
-                                                                                right: 10px;
-                                                                                gap: 5px;
-                                                                            }
-
-                                                                            .mode-toggle button {
-                                                                                padding: 8px 12px;
-                                                                                font-size: 11px;
-                                                                            }
-                                                                        }
-                                                                    </style>
-
-                                                                    <div class="mode-toggle">
-                                                                        <button id="scrollModeBtn" class="active"
-                                                                            onclick="setScrollMode()">📜 Scroll</button>
-                                                                        <button id="flipModeBtn"
-                                                                            onclick="setFlipMode()">📖 Flipbook</button>
-                                                                        <button onclick="downloadPDF()">📥 PDF</button>
-                                                                        <button onclick="window.print()">🖨️
-                                                                            Print</button>
-                                                                    </div>
-
     <!-- jsPDF for PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <!-- html2canvas for capturing pages -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
-        .toolbar {
+        .download-toolbar {
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 10000;
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
         }
-        .toolbar button {
+        .download-toolbar button {
             background: rgba(255,255,255,0.95);
             border: 2px solid #3b82f6;
             color: #3b82f6;
@@ -2823,31 +2640,20 @@ void loop() {
             border-radius: 25px;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s;
             font-size: 13px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
         }
-        .toolbar button:hover {
+        .download-toolbar button:hover {
             background: #3b82f6;
             color: white;
         }
-        @media (max-width: 768px) {
-            .toolbar {
-                top: 10px;
-                right: 10px;
-                gap: 5px;
-            }
-            .toolbar button {
-                padding: 8px 12px;
-                font-size: 11px;
-            }
-        }
         @media print {
-            .toolbar { display: none !important; }
+            .download-toolbar { display: none !important; }
         }
     </style>
 
-    <div class="toolbar">
+    <div class="download-toolbar">
         <button onclick="downloadPDF()">📥 Download PDF</button>
         <button onclick="window.print()">🖨️ Print</button>
     </div>
@@ -2890,7 +2696,6 @@ void loop() {
             processPage();
         }
     </script>
-
 
 </body>
 
