@@ -2618,15 +2618,265 @@ void loop() {
                                                                             alt="Cover Belakang Modul - Deskripsi modul dan QR code akses online">
                                                                     </div>
 
+                                                                    <!-- StPageFlip CDN -->
+                                                                    <script
+                                                                        src="https://unpkg.com/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+                                                                    <!-- jsPDF for PDF generation -->
+                                                                    <script
+                                                                        src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+                                                                    <!-- html2canvas for capturing pages -->
+                                                                    <script
+                                                                        src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+                                                                    <style>
+                                                                        /* Flipbook Mode Styles */
+                                                                        .flipbook-container {
+                                                                            display: none;
+                                                                            position: fixed;
+                                                                            top: 0;
+                                                                            left: 0;
+                                                                            width: 100vw;
+                                                                            height: 100vh;
+                                                                            z-index: 9999;
+                                                                            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+                                                                            justify-content: center;
+                                                                            align-items: center;
+                                                                            flex-direction: column;
+                                                                        }
+
+                                                                        .flipbook-container.active {
+                                                                            display: flex;
+                                                                        }
+
+                                                                        #flipbook {
+                                                                            margin: 20px auto;
+                                                                        }
+
+                                                                        .flipbook-toolbar {
+                                                                            position: fixed;
+                                                                            bottom: 20px;
+                                                                            left: 50%;
+                                                                            transform: translateX(-50%);
+                                                                            display: flex;
+                                                                            gap: 10px;
+                                                                            background: rgba(255, 255, 255, 0.95);
+                                                                            padding: 12px 20px;
+                                                                            border-radius: 50px;
+                                                                            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                                                                            z-index: 10000;
+                                                                        }
+
+                                                                        .flipbook-toolbar button {
+                                                                            background: #3b82f6;
+                                                                            color: white;
+                                                                            border: none;
+                                                                            padding: 10px 18px;
+                                                                            border-radius: 25px;
+                                                                            cursor: pointer;
+                                                                            font-size: 14px;
+                                                                            font-weight: 500;
+                                                                            transition: all 0.3s ease;
+                                                                        }
+
+                                                                        .flipbook-toolbar button:hover {
+                                                                            background: #1e3a5f;
+                                                                            transform: translateY(-2px);
+                                                                        }
+
+                                                                        .flipbook-toolbar button.nav-btn {
+                                                                            background: #333;
+                                                                            padding: 10px 14px;
+                                                                        }
+
+                                                                        .flipbook-toolbar .page-indicator {
+                                                                            background: #f0f0f0;
+                                                                            color: #333;
+                                                                            padding: 10px 16px;
+                                                                            border-radius: 25px;
+                                                                            font-weight: 600;
+                                                                            min-width: 80px;
+                                                                            text-align: center;
+                                                                        }
+
+                                                                        .mode-toggle {
+                                                                            position: fixed;
+                                                                            top: 20px;
+                                                                            right: 20px;
+                                                                            z-index: 10001;
+                                                                            display: flex;
+                                                                            gap: 10px;
+                                                                            flex-wrap: wrap;
+                                                                        }
+
+                                                                        .mode-toggle button {
+                                                                            background: rgba(255, 255, 255, 0.95);
+                                                                            border: 2px solid #3b82f6;
+                                                                            color: #3b82f6;
+                                                                            padding: 10px 16px;
+                                                                            border-radius: 25px;
+                                                                            cursor: pointer;
+                                                                            font-weight: 600;
+                                                                            transition: all 0.3s;
+                                                                            font-size: 13px;
+                                                                        }
+
+                                                                        .mode-toggle button:hover,
+                                                                        .mode-toggle button.active {
+                                                                            background: #3b82f6;
+                                                                            color: white;
+                                                                        }
+
+                                                                        .flip-page {
+                                                                            background: white;
+                                                                            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                                                                            overflow: hidden;
+                                                                        }
+
+                                                                        @media (max-width: 768px) {
+                                                                            .mode-toggle {
+                                                                                top: 10px;
+                                                                                right: 10px;
+                                                                                gap: 5px;
+                                                                            }
+
+                                                                            .mode-toggle button {
+                                                                                padding: 8px 12px;
+                                                                                font-size: 11px;
+                                                                            }
+                                                                        }
+                                                                    </style>
+
+                                                                    <div class="mode-toggle">
+                                                                        <button id="scrollModeBtn" class="active"
+                                                                            onclick="setScrollMode()">📜 Scroll</button>
+                                                                        <button id="flipModeBtn"
+                                                                            onclick="setFlipMode()">📖 Flipbook</button>
+                                                                        <button onclick="downloadPDF()">📥 PDF</button>
+                                                                        <button onclick="window.print()">🖨️
+                                                                            Print</button>
+                                                                    </div>
+
+                                                                    <div class="flipbook-container"
+                                                                        id="flipbookContainer">
+                                                                        <div id="flipbook"></div>
+                                                                        <div class="flipbook-toolbar">
+                                                                            <button class="nav-btn"
+                                                                                onclick="flipPrev()">◀ Prev</button>
+                                                                            <span class="page-indicator"
+                                                                                id="pageIndicator">1 / 1</span>
+                                                                            <button class="nav-btn"
+                                                                                onclick="flipNext()">Next ▶</button>
+                                                                            <button onclick="setScrollMode()">✖
+                                                                                Close</button>
+                                                                        </div>
+                                                                    </div>
+
                                                                     <script>
-                                                                        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                                                                            anchor.addEventListener('click', function (e) {
-                                                                                e.preventDefault();
-                                                                                const target = document.querySelector(this.getAttribute('href'));
-                                                                                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                                                        var pageFlip = null;
+                                                                        var allPages = document.querySelectorAll('.page');
+
+                                                                        function initFlipbook() {
+                                                                            var container = document.getElementById('flipbook');
+                                                                            container.innerHTML = '';
+
+                                                                            for (var i = 0; i < allPages.length; i++) {
+                                                                                var clone = allPages[i].cloneNode(true);
+                                                                                clone.className = 'flip-page';
+                                                                                clone.style.width = '100%';
+                                                                                clone.style.height = '100%';
+                                                                                if (i === 0 || i === allPages.length - 1) {
+                                                                                    clone.setAttribute('data-density', 'hard');
+                                                                                }
+                                                                                container.appendChild(clone);
+                                                                            }
+
+                                                                            pageFlip = new St.PageFlip(container, {
+                                                                                width: 550,
+                                                                                height: 733,
+                                                                                size: 'stretch',
+                                                                                minWidth: 300,
+                                                                                maxWidth: 700,
+                                                                                minHeight: 400,
+                                                                                maxHeight: 900,
+                                                                                showCover: true,
+                                                                                drawShadow: true,
+                                                                                flippingTime: 800,
+                                                                                usePortrait: true,
+                                                                                autoSize: true,
+                                                                                maxShadowOpacity: 0.5,
+                                                                                mobileScrollSupport: false
                                                                             });
-                                                                        });
+
+                                                                            pageFlip.loadFromHTML(container.querySelectorAll('.flip-page'));
+                                                                            pageFlip.on('flip', function (e) {
+                                                                                updatePageIndicator(e.data);
+                                                                            });
+                                                                            updatePageIndicator(0);
+                                                                        }
+
+                                                                        function updatePageIndicator(num) {
+                                                                            var total = pageFlip ? pageFlip.getPageCount() : allPages.length;
+                                                                            document.getElementById('pageIndicator').textContent = (num + 1) + ' / ' + total;
+                                                                        }
+
+                                                                        function flipNext() { if (pageFlip) pageFlip.flipNext(); }
+                                                                        function flipPrev() { if (pageFlip) pageFlip.flipPrev(); }
+
+                                                                        function setFlipMode() {
+                                                                            document.getElementById('flipbookContainer').classList.add('active');
+                                                                            document.getElementById('flipModeBtn').classList.add('active');
+                                                                            document.getElementById('scrollModeBtn').classList.remove('active');
+                                                                            document.body.style.overflow = 'hidden';
+                                                                            initFlipbook();
+                                                                        }
+
+                                                                        function setScrollMode() {
+                                                                            document.getElementById('flipbookContainer').classList.remove('active');
+                                                                            document.getElementById('scrollModeBtn').classList.add('active');
+                                                                            document.getElementById('flipModeBtn').classList.remove('active');
+                                                                            document.body.style.overflow = 'auto';
+                                                                            if (pageFlip) {
+                                                                                pageFlip.destroy();
+                                                                                pageFlip = null;
+                                                                            }
+                                                                        }
+
+                                                                        function downloadPDF() {
+                                                                            var jsPDF = window.jspdf.jsPDF;
+                                                                            var pdf = new jsPDF('p', 'mm', 'a4');
+                                                                            var pdfWidth = 210;
+                                                                            var pdfHeight = 297;
+
+                                                                            var loadingDiv = document.createElement('div');
+                                                                            loadingDiv.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:30px;border-radius:10px;z-index:99999;box-shadow:0 4px 20px rgba(0,0,0,0.3);text-align:center;';
+                                                                            loadingDiv.innerHTML = '<div style="font-size:18px;margin-bottom:10px;">📄 Generating PDF...</div><div id="pdfProgress">0 / ' + allPages.length + '</div>';
+                                                                            document.body.appendChild(loadingDiv);
+
+                                                                            var i = 0;
+                                                                            function processPage() {
+                                                                                if (i >= allPages.length) {
+                                                                                    loadingDiv.remove();
+                                                                                    pdf.save('modul-arduino-flipbook.pdf');
+                                                                                    return;
+                                                                                }
+                                                                                document.getElementById('pdfProgress').textContent = (i + 1) + ' / ' + allPages.length;
+                                                                                html2canvas(allPages[i], {
+                                                                                    scale: 2,
+                                                                                    useCORS: true,
+                                                                                    logging: false,
+                                                                                    backgroundColor: '#ffffff'
+                                                                                }).then(function (canvas) {
+                                                                                    var imgData = canvas.toDataURL('image/jpeg', 0.9);
+                                                                                    if (i > 0) pdf.addPage();
+                                                                                    pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+                                                                                    i++;
+                                                                                    setTimeout(processPage, 100);
+                                                                                });
+                                                                            }
+                                                                            processPage();
+                                                                        }
                                                                     </script>
+
 </body>
 
 </html>
