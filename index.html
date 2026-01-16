@@ -2821,57 +2821,44 @@ void loop() {
 
                                                                         function initFlipbook() {
                                                                             var container = document.getElementById('flipbook');
-                                                                            container.innerHTML = '';
-
-                                                                            for (var i = 0; i < allPages.length; i++) {
-                                                                                var clone = allPages[i].cloneNode(true);
-                                                                                // Remove original classes and add flip-page
-                                                                                clone.className = 'flip-page';
-                                                                                // Reset inline styles from original
-                                                                                clone.style.cssText = 'width: 100%; height: 100%; overflow: hidden; position: relative;';
-
-                                                                                // Mark cover pages as hard
-                                                                                if (i === 0 || i === allPages.length - 1) {
-                                                                                    clone.setAttribute('data-density', 'hard');
+                                                                            container.innerHTML = '<div style="color:white;padding:40px;text-align:center;"><div style="font-size:24px;margin-bottom:20px;">📖 Preparing Flipbook...</div><div id="flipProgress">Please wait...</div></div>';
+                                                                            
+                                                                            var images = [];
+                                                                            var captureIndex = 0;
+                                                                            
+                                                                            function captureNextPage() {
+                                                                                if (captureIndex >= allPages.length) {
+                                                                                    container.innerHTML = '';
+                                                                                    pageFlip = new St.PageFlip(container, {
+                                                                                        width: 420,
+                                                                                        height: 594,
+                                                                                        size: 'stretch',
+                                                                                        minWidth: 280,
+                                                                                        maxWidth: 500,
+                                                                                        minHeight: 396,
+                                                                                        maxHeight: 707,
+                                                                                        showCover: true,
+                                                                                        drawShadow: true,
+                                                                                        flippingTime: 800,
+                                                                                        usePortrait: true,
+                                                                                        autoSize: true,
+                                                                                        maxShadowOpacity: 0.5
+                                                                                    });
+                                                                                    pageFlip.loadFromImages(images);
+                                                                                    pageFlip.on('flip', function(e) { updatePageIndicator(e.data); });
+                                                                                    updatePageIndicator(0);
+                                                                                    return;
                                                                                 }
-
-                                                                                // Fix page-number positioning in clone
-                                                                                var pageNum = clone.querySelector('.page-number');
-                                                                                if (pageNum) {
-                                                                                    pageNum.style.cssText = 'position: absolute; bottom: 5px; font-size: 9pt;';
-                                                                                }
-
-                                                                                // Fix page-content sizing in clone
-                                                                                var pageContent = clone.querySelector('.page-content');
-                                                                                if (pageContent) {
-                                                                                    pageContent.style.cssText = 'height: calc(100% - 30px); overflow: hidden; padding: 12px; box-sizing: border-box; font-size: 8pt; line-height: 1.3;';
-                                                                                }
-
-                                                                                container.appendChild(clone);
+                                                                                document.getElementById('flipProgress').textContent = 'Page ' + (captureIndex+1) + ' / ' + allPages.length;
+                                                                                html2canvas(allPages[captureIndex], { scale: 1.2, useCORS: true, logging: false, backgroundColor: '#ffffff' })
+                                                                                    .then(function(canvas) {
+                                                                                        images.push(canvas.toDataURL('image/jpeg', 0.8));
+                                                                                        captureIndex++;
+                                                                                        setTimeout(captureNextPage, 30);
+                                                                                    })
+                                                                                    .catch(function(e) { captureIndex++; setTimeout(captureNextPage, 30); });
                                                                             }
-
-                                                                            pageFlip = new St.PageFlip(container, {
-                                                                                width: 550,
-                                                                                height: 733,
-                                                                                size: 'stretch',
-                                                                                minWidth: 300,
-                                                                                maxWidth: 700,
-                                                                                minHeight: 400,
-                                                                                maxHeight: 900,
-                                                                                showCover: true,
-                                                                                drawShadow: true,
-                                                                                flippingTime: 800,
-                                                                                usePortrait: true,
-                                                                                autoSize: true,
-                                                                                maxShadowOpacity: 0.5,
-                                                                                mobileScrollSupport: false
-                                                                            });
-
-                                                                            pageFlip.loadFromHTML(container.querySelectorAll('.flip-page'));
-                                                                            pageFlip.on('flip', function (e) {
-                                                                                updatePageIndicator(e.data);
-                                                                            });
-                                                                            updatePageIndicator(0);
+                                                                            captureNextPage();
                                                                         }
 
                                                                         function updatePageIndicator(num) {
