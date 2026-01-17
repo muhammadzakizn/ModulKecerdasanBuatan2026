@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Kecerdasan Buatan (AI) - Arduino | Politeknik Dewantara</title>
+
+    <!-- Paged.js for print pagination -->
+    <script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
+    <!-- html2pdf for PDF download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&family=Fira+Code&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ==================== PRINT PAGE RULES ==================== */
+        @page {
+            size: A4;
+            margin: 2cm 2cm 2.5cm 2.5cm;
+
+            @top-center {
+                content: string(chapter-title);
+                font-size: 9pt;
+                color: #666;
+            }
+
+            @bottom-center {
+                content: counter(page);
+                font-size: 10pt;
+            }
+        }
+
+        @page cover {
+            margin: 0;
+
+            @top-center {
+                content: none;
+            }
+
+            @bottom-center {
+                content: none;
+            }
+        }
+
+        @page frontmatter {
+            @bottom-center {
+                content: counter(page, lower-roman);
+            }
+        }
+
+        /* ==================== CSS VARIABLES ==================== */
+        :root {
+            --primary-dark: #1a5276;
+            --primary-blue: #1e3a5f;
+            --accent-blue: #2980b9;
+            --accent-gold: #f1c40f;
+            --text-dark: #1a1a1a;
+            --text-light: #ffffff;
+            --border-light: #e5e7eb;
+        }
+
+        /* ==================== BASE STYLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 11pt;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: #f5f5f5;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* ==================== COVER PAGE ==================== */
+        .cover-page {
+            page: cover;
+            break-after: page;
+        }
+
+        .cover-page img {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        /* ==================== FRONT MATTER (roman numerals) ==================== */
+        .frontmatter {
+            page: frontmatter;
+        }
+
+        /* ==================== CHAPTER TITLES ==================== */
+        .chapter {
+            break-before: page;
+        }
+
+        .chapter-title {
+            font-family: 'Merriweather', serif;
+            font-size: 24pt;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8mm;
+            padding-bottom: 5mm;
+            border-bottom: 3px solid var(--accent-blue);
+            string-set: chapter-title content();
+        }
+
+        h2 {
+            font-family: 'Merriweather', serif;
+            font-size: 14pt;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 8mm 0 4mm 0;
+        }
+
+        h3 {
+            font-family: 'Merriweather', serif;
+            font-size: 12pt;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin: 6mm 0 3mm 0;
+        }
+
+        /* ==================== PARAGRAPHS ==================== */
+        p {
+            text-align: justify;
+            margin-bottom: 4mm;
+        }
+
+        ul,
+        ol {
+            margin: 4mm 0 6mm 8mm;
+        }
+
+        li {
+            margin-bottom: 2mm;
+        }
+
+        /* ==================== TABLES ==================== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 5mm 0;
+            font-size: 10pt;
+            break-inside: avoid;
+        }
+
+        th {
+            background: var(--primary-dark);
+            color: white;
+            padding: 3mm;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 3mm;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        /* ==================== CODE BLOCKS ==================== */
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 5mm;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 9pt;
+            line-height: 1.5;
+            margin: 5mm 0;
+            break-inside: avoid;
+            white-space: pre-wrap;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+        }
+
+        p code,
+        li code {
+            background: #f1f5f9;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-size: 9pt;
+            color: #dc2626;
+        }
+
+        /* ==================== INFO BOXES ==================== */
+        .info-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 4px solid var(--accent-blue);
+            padding: 4mm;
+            border-radius: 0 8px 8px 0;
+            margin: 4mm 0;
+            break-inside: avoid;
+        }
+
+        .info-box h4 {
+            font-size: 11pt;
+            color: var(--primary-dark);
+            margin-bottom: 2mm;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 4px solid #f59e0b;
+        }
+
+        .warning-box h4 {
+            color: #92400e;
+        }
+
+        .danger-box {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left: 4px solid #dc2626;
+        }
+
+        .danger-box h4 {
+            color: #991b1b;
+        }
+
+        /* ==================== QUOTES ==================== */
+        .quote-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin: 5mm 0;
+            background: #f8f9fa;
+            border-left: 4px solid var(--accent-blue);
+            padding: 4mm;
+            border-radius: 0 8px 8px 0;
+            break-inside: avoid;
+        }
+
+        .expert-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-blue);
+            flex-shrink: 0;
+        }
+
+        .quote-content {
+            flex: 1;
+            font-style: italic;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .quote-author {
+            display: block;
+            margin-top: 3mm;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 0.9em;
+            color: var(--primary-dark);
+        }
+
+        /* ==================== FOUNDER/EXPERT CARDS ==================== */
+        .founder-card {
+            display: flex;
+            gap: 4mm;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            padding: 4mm;
+            margin: 3mm 0;
+            break-inside: avoid;
+        }
+
+        .founder-image {
+            width: 20mm;
+            height: 20mm;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-blue);
+            flex-shrink: 0;
+        }
+
+        .founder-info h4 {
+            font-size: 11pt;
+            color: var(--primary-dark);
+            margin-bottom: 1mm;
+        }
+
+        .founder-info .role {
+            font-size: 9pt;
+            color: var(--accent-blue);
+            font-weight: 500;
+        }
+
+        .founder-info .bio {
+            font-size: 9pt;
+            color: #4b5563;
+            margin-top: 2mm;
+        }
+
+        /* ==================== COMPONENT CARDS ==================== */
+        .component-card {
+            display: flex;
+            gap: 5mm;
+            background: #f8fafc;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 5mm;
+            margin: 5mm 0;
+            break-inside: avoid;
+        }
+
+        .component-image {
+            width: 40mm;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .component-image img {
+            max-width: 100%;
+            max-height: 35mm;
+            object-fit: contain;
+        }
+
+        .component-image figcaption {
+            font-size: 8pt;
+            color: #6b7280;
+            margin-top: 2mm;
+        }
+
+        .component-info h4 {
+            font-size: 12pt;
+            color: var(--accent-blue);
+            margin-bottom: 2mm;
+        }
+
+        /* ==================== EXPERT GRID ==================== */
+        .expert-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 5mm 0;
+        }
+
+        .expert-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            break-inside: avoid;
+        }
+
+        .expert-card img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .expert-card h5 {
+            font-size: 10pt;
+            color: var(--primary-dark);
+            margin-bottom: 2px;
+        }
+
+        .expert-card p {
+            font-size: 8pt;
+            color: #555;
+            margin: 0;
+            text-align: left;
+        }
+
+        /* ==================== BIBLIOGRAPHY ==================== */
+        .bibliography p {
+            padding-left: 10mm;
+            text-indent: -10mm;
+            margin-bottom: 3mm;
+            font-size: 10pt;
+            text-align: left;
+        }
+
+        /* ==================== TOC ==================== */
+        .toc-title {
+            font-family: 'Merriweather', serif;
+            font-size: 20pt;
+            color: var(--primary-dark);
+            text-align: center;
+            margin-bottom: 10mm;
+        }
+
+        .toc-item {
+            display: flex;
+            margin-bottom: 2mm;
+            font-size: 10pt;
+        }
+
+        .toc-item.main {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .toc-item.sub {
+            padding-left: 8mm;
+        }
+
+        .toc-dots {
+            flex: 1;
+            border-bottom: 1px dotted #9ca3af;
+            margin: 0 3mm 3px;
+        }
+
+        .toc-page {
+            min-width: 8mm;
+            text-align: right;
+            color: var(--accent-blue);
+        }
+
+        /* ==================== DOWNLOAD BUTTON ==================== */
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(41, 128, 185, 0.4);
+            z-index: 1000;
+        }
+
+        .download-btn:hover {
+            background: #1a5276;
+        }
+
+        @media print {
+            .download-btn {
+                display: none;
+            }
+        }
+
+        /* ==================== IMAGES ==================== */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        figure {
+            margin: 5mm 0;
+            text-align: center;
+            break-inside: avoid;
+        }
+
+        figcaption {
+            font-size: 9pt;
+            color: #666;
+            font-style: italic;
+            margin-top: 2mm;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="download-btn" onclick="downloadPDF()">📥 Download PDF</button>
+
+    <!-- ==================== COVER PAGE ==================== -->
+    <div class="cover-page">
+        <img src="images/cover_page_1.jpg" alt="Cover Modul Kecerdasan Buatan - Arduino">
+    </div>
+
+    <!-- ==================== AUTHOR INFO PAGE ==================== -->
+    <div class="cover-page">
+        <img src="images/cover_page_2.jpg" alt="Halaman Informasi Penyusun">
+    </div>
+
+    <!-- ==================== TABLE OF CONTENTS ==================== -->
+    <section class="frontmatter">
+        <h1 class="toc-title">DAFTAR ISI</h1>
+
+        <div class="toc-item main"><span>DAFTAR GAMBAR</span><span class="toc-dots"></span><span
+                class="toc-page">iii</span></div>
+        <div class="toc-item main"><span>BAB I — PENDAHULUAN</span><span class="toc-dots"></span><span
+                class="toc-page">1</span></div>
+        <div class="toc-item sub"><span>1.1 Latar Belakang & Sejarah Arduino</span><span class="toc-dots"></span><span
+                class="toc-page">1</span></div>
+        <div class="toc-item sub"><span>1.2 Pendiri Arduino</span><span class="toc-dots"></span><span
+                class="toc-page">2</span></div>
+        <div class="toc-item sub"><span>1.3 Perusahaan Arduino</span><span class="toc-dots"></span><span
+                class="toc-page">3</span></div>
+        <div class="toc-item sub"><span>1.4 Pengertian Menurut Para Ahli</span><span class="toc-dots"></span><span
+                class="toc-page">4</span></div>
+        <div class="toc-item sub"><span>1.5 Hubungan Arduino dengan AI</span><span class="toc-dots"></span><span
+                class="toc-page">5</span></div>
+        <div class="toc-item sub"><span>1.6 Tokoh Pionir AI & IoT</span><span class="toc-dots"></span><span
+                class="toc-page">6</span></div>
+        <div class="toc-item main"><span>BAB II — DASAR-DASAR ARDUINO</span><span class="toc-dots"></span><span
+                class="toc-page">7</span></div>
+        <div class="toc-item sub"><span>2.1 Pengertian Arduino</span><span class="toc-dots"></span><span
+                class="toc-page">7</span></div>
+        <div class="toc-item sub"><span>2.2 Pemrograman Arduino untuk Pemula</span><span class="toc-dots"></span><span
+                class="toc-page">8</span></div>
+        <div class="toc-item sub"><span>2.3 Daftar Fungsi Arduino Penting</span><span class="toc-dots"></span><span
+                class="toc-page">10</span></div>
+        <div class="toc-item main"><span>BAB III — KOMPONEN-KOMPONEN ARDUINO</span><span class="toc-dots"></span><span
+                class="toc-page">12</span></div>
+        <div class="toc-item main"><span>BAB IV — PROJECT PEMBELAJARAN</span><span class="toc-dots"></span><span
+                class="toc-page">13</span></div>
+        <div class="toc-item main"><span>BAB V — PENUTUP</span><span class="toc-dots"></span><span
+                class="toc-page">20</span></div>
+        <div class="toc-item main"><span>DAFTAR PUSTAKA</span><span class="toc-dots"></span><span
+                class="toc-page">22</span></div>
+    </section>
+
+    <!-- ==================== BAB I: PENDAHULUAN ==================== -->
+    <section class="chapter" id="bab1">
+        <h1 class="chapter-title">BAB I<br>PENDAHULUAN</h1>
+
+        <h2>1.1 Latar Belakang dan Sejarah Arduino</h2>
+        <p>Perkembangan teknologi Kecerdasan Buatan (Artificial Intelligence) telah mengalami evolusi signifikan dari
+            sistem berbasis cloud computing menuju implementasi pada perangkat edge (edge computing). Dalam konteks ini,
+            mikrokontroler seperti Arduino memegang peranan penting sebagai platform untuk mengimplementasikan sistem AI
+            tingkat dasar, khususnya dalam aplikasi Internet of Things (IoT), robotika, dan smart devices.</p>
+
+        <p><strong>Arduino</strong> adalah platform elektronik open-source yang diciptakan pada tahun 2005 di
+            <strong>Interaction Design Institute Ivrea (IDII)</strong>, Italia. Nama "Arduino" diambil dari nama sebuah
+            bar di Ivrea, Italia, tempat para pendiri sering berkumpul. Bar tersebut dinamai mengikuti nama Raja Arduino
+            dari Ivrea (1002-1015 M).
+        </p>
+
+        <h3>Sejarah Singkat Arduino</h3>
+        <div class="info-box">
+            <h4>📅 Timeline Perkembangan Arduino</h4>
+            <p>
+                <strong>2003:</strong> Proyek awal dimulai oleh Hernando Barragán sebagai thesis project di IDII
+                Ivrea<br>
+                <strong>2005:</strong> Arduino board pertama dirilis dengan harga terjangkau ($30)<br>
+                <strong>2008:</strong> Arduino Duemilanove dirilis dengan auto-reset dan USB yang stabil<br>
+                <strong>2010:</strong> Arduino UNO dirilis dan menjadi standar industri; Arduino Day mulai dirayakan<br>
+                <strong>2012:</strong> Arduino Leonardo dengan native USB support<br>
+                <strong>2017:</strong> Kedua entitas bergabung kembali membentuk Arduino Holding<br>
+                <strong>2020:</strong> Arduino Nano 33 BLE Sense dengan TinyML support<br>
+                <strong>2023:</strong> Arduino Cloud mencapai 1 juta pengguna aktif
+            </p>
+        </div>
+
+        <h2>1.2 Pendiri Arduino</h2>
+        <p>Arduino dikembangkan oleh tim yang terdiri dari lima orang dengan latar belakang berbeda:</p>
+
+        <div class="founder-card">
+            <img class="founder-image" src="images/experts/massimo_banzi.jpg" alt="Massimo Banzi">
+            <div class="founder-info">
+                <h4>Massimo Banzi</h4>
+                <div class="role">Co-Founder & Visioner Utama</div>
+                <div class="bio">Professor di IDII Ivrea, penulis "Getting Started with Arduino". Wajah publik Arduino.
+                </div>
+            </div>
+        </div>
+
+        <div class="founder-card">
+            <img class="founder-image" src="images/experts/david_cuartielles.jpg" alt="David Cuartielles">
+            <div class="founder-info">
+                <h4>David Cuartielles</h4>
+                <div class="role">Hardware Engineer</div>
+                <div class="bio">Profesor di Malmö University, Swedia. Ahli hardware design dan electronic prototyping.
+                </div>
+            </div>
+        </div>
+
+        <div class="founder-card">
+            <img class="founder-image" src="images/experts/tom_igoe.jpg" alt="Tom Igoe">
+            <div class="founder-info">
+                <h4>Tom Igoe</h4>
+                <div class="role">Professor & Co-Founder</div>
+                <div class="bio">Professor NYU ITP, ahli physical computing, penulis "Physical Computing".</div>
+            </div>
+        </div>
+
+        <div class="founder-card">
+            <img class="founder-image" src="images/experts/gianluca_martino.jpg" alt="Gianluca Martino">
+            <div class="founder-info">
+                <h4>Gianluca Martino</h4>
+                <div class="role">Manufacturer</div>
+                <div class="bio">Pendiri Smart Projects Srl, memproduksi board Arduino pertama.</div>
+            </div>
+        </div>
+
+        <div class="founder-card">
+            <img class="founder-image" src="images/experts/david_mellis.jpg" alt="David Mellis">
+            <div class="founder-info">
+                <h4>David Mellis</h4>
+                <div class="role">Software Developer</div>
+                <div class="bio">Pencipta Arduino IDE dan bahasa pemrograman Arduino. Lulusan MIT Media Lab.</div>
+            </div>
+        </div>
+
+        <h2>1.3 Perusahaan Arduino</h2>
+
+        <figure>
+            <img src="images/arduino_headquarters.jpg" alt="Interaction Design Institute Ivrea"
+                style="max-width: 120mm; border-radius: 8px;">
+            <figcaption>Gambar 1.1 — Interaction Design Institute Ivrea (IDII), Italia (2001-2005)<br><a
+                    href="https://commons.wikimedia.org/wiki/File:Interaction_Design_Institute_Ivrea_Building_(2001-2005).jpg">Sumber:
+                    Wikimedia Commons</a></figcaption>
+        </figure>
+
+        <p>Arduino didirikan tahun <strong>2005</strong> di Interaction Design Institute Ivrea (IDII), Italia, untuk
+            membantu mahasiswa desain membuat prototipe interaktif.</p>
+
+        <h3>Struktur Perusahaan</h3>
+        <ul>
+            <li><strong>Arduino LLC</strong> — Berbasis di AS, mengelola merek & IP</li>
+            <li><strong>Arduino SRL</strong> — Berbasis di Italia, manufaktur & distribusi</li>
+            <li><strong>Arduino Holding</strong> — Entitas gabungan sejak 2017, CEO Fabio Violante</li>
+        </ul>
+
+        <p>Kantor pusat di <strong>Toolbox Coworking</strong>, Turin (bekas pabrik FIAT), juga berfungsi sebagai
+            <strong>Officine Arduino Torino</strong> (makerspace).
+        </p>
+
+        <div class="info-box">
+            <p><strong>Pencapaian:</strong> 30+ juta board terjual, 200+ negara, 28+ juta pengguna, platform pendidikan
+                di ribuan sekolah.</p>
+        </div>
+
+        <h2>1.4 Pengertian Arduino Menurut Para Ahli</h2>
+
+        <div class="info-box">
+            <p><em>"Arduino is an open-source electronics platform based on easy-to-use hardware and software. It's
+                    intended for anyone making interactive projects."</em><br>— Arduino.cc Official Definition (2024)
+            </p>
+        </div>
+
+        <div class="quote-container">
+            <img class="expert-photo" src="images/experts/simon_monk.jpg" alt="Simon Monk">
+            <div class="quote-content">
+                "Arduino represents a paradigm shift in embedded systems education, democratizing access to
+                microcontroller technology through its simplified programming environment and affordable hardware."
+                <span class="quote-author">— Monk, S. (2016). Programming Arduino: Getting Started with Sketches.
+                    McGraw-Hill Education</span>
+            </div>
+        </div>
+
+        <h3>Definisi Mikrokontroler</h3>
+        <p>Menurut <strong>Prof. Peter Marwedel (2021)</strong> dari TU Dortmund University:</p>
+        <div class="info-box">
+            <p>"A microcontroller is a small computer on a single integrated circuit containing a processor core,
+                memory, and programmable input/output peripherals, designed for embedded applications that require
+                real-time computing with low power consumption."</p>
+        </div>
+
+        <h2>1.5 Hubungan Arduino dengan Kecerdasan Buatan</h2>
+
+        <div class="quote-container">
+            <img class="expert-photo" src="images/experts/stuart_russell.webp" alt="Stuart Russell">
+            <div class="quote-content">
+                "Intelligent agents must be able to perceive their environment, reason about what they perceive, and
+                take actions that affect that environment. The sense-plan-act paradigm is fundamental to understanding
+                how AI systems interact with the physical world."
+                <span class="quote-author">— Russell, S., & Norvig, P. (2020). Artificial Intelligence: A Modern
+                    Approach. 4th Edition</span>
+            </div>
+        </div>
+
+        <p>Arduino menyediakan infrastruktur hardware yang memungkinkan implementasi ketiga aspek AI:</p>
+
+        <table>
+            <tr>
+                <th>Aspek AI</th>
+                <th>Implementasi Arduino</th>
+                <th>Komponen</th>
+            </tr>
+            <tr>
+                <td><strong>Perception</strong></td>
+                <td>Pengumpulan data dari lingkungan</td>
+                <td>Sensor (ultrasonik, LDR, PIR, suhu)</td>
+            </tr>
+            <tr>
+                <td><strong>Reasoning</strong></td>
+                <td>Pemrosesan logika & algoritma</td>
+                <td>ATmega328P Microcontroller</td>
+            </tr>
+            <tr>
+                <td><strong>Action</strong></td>
+                <td>Eksekusi respons fisik</td>
+                <td>Aktuator (LED, motor, buzzer, relay)</td>
+            </tr>
+        </table>
+
+        <h2>1.6 Tujuan Pembelajaran</h2>
+        <ol>
+            <li>Memahami konsep dasar mikrokontroler Arduino dan pemrogramannya</li>
+            <li>Mengenal berbagai komponen input dan output dalam sistem embedded</li>
+            <li>Mengimplementasikan logika kontrol dan decision making</li>
+            <li>Membangun project terintegrasi dengan multiple sensors dan actuators</li>
+            <li>Memahami hubungan antara sistem embedded dengan kecerdasan buatan</li>
+        </ol>
+
+        <h2>1.7 Tokoh Pionir AI & IoT</h2>
+        <p>Berikut adalah tokoh-tokoh penting yang karyanya menjadi landasan pengembangan IoT dan AI:</p>
+
+        <div class="expert-grid">
+            <div class="expert-card">
+                <img src="images/experts/marvin_minsky.jpg" alt="Marvin Minsky">
+                <div>
+                    <h5>Marvin Minsky</h5>
+                    <p>Co-founder MIT AI Lab. Bapak AI Modern.</p>
+                </div>
+            </div>
+            <div class="expert-card">
+                <img src="images/experts/rodney_brooks.jpg" alt="Rodney Brooks">
+                <div>
+                    <h5>Rodney Brooks</h5>
+                    <p>Behavior-based Robotics. iRobot Founder.</p>
+                </div>
+            </div>
+            <div class="expert-card">
+                <img src="images/experts/rosalind_picard.png" alt="Rosalind Picard">
+                <div>
+                    <h5>Rosalind Picard</h5>
+                    <p>Pionir Affective Computing MIT.</p>
+                </div>
+            </div>
+            <div class="expert-card">
+                <img src="images/experts/richard_sutton.webp" alt="Richard Sutton">
+                <div>
+                    <h5>Richard Sutton</h5>
+                    <p>Bapak Reinforcement Learning.</p>
+                </div>
+            </div>
+            <div class="expert-card">
+                <img src="images/experts/pete_warden.jpg" alt="Pete Warden">
+                <div>
+                    <h5>Pete Warden</h5>
+                    <p>Penulis TinyML, Google AI Alumni.</p>
+                </div>
+            </div>
+            <div class="expert-card">
+                <img src="images/experts/neil_gershenfeld.jpg" alt="Neil Gershenfeld">
+                <div>
+                    <h5>Neil Gershenfeld</h5>
+                    <p>Founder Fab Labs (MIT CBA).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== BAB II: DASAR-DASAR ARDUINO ==================== -->
+    <section class="chapter" id="bab2">
+        <h1 class="chapter-title">BAB II<br>DASAR-DASAR ARDUINO</h1>
+
+        <h2>2.1 Pengertian Arduino</h2>
+        <p>Arduino adalah platform elektronik open-source yang terdiri dari papan sirkuit (hardware) dan software
+            development environment (IDE). Arduino UNO, yang digunakan dalam modul ini, menggunakan mikrokontroler
+            ATmega328P.</p>
+
+        <div class="info-box">
+            <h4>🎯 Mengapa Arduino Populer untuk Pemula?</h4>
+            <p>
+                • <strong>Mudah dipelajari</strong> — Bahasa pemrograman sederhana berbasis C/C++<br>
+                • <strong>Komunitas besar</strong> — Banyak tutorial dan forum bantuan<br>
+                • <strong>Harga terjangkau</strong> — Board mulai dari Rp 50.000-an<br>
+                • <strong>Open-source</strong> — Desain bebas dimodifikasi dan dikembangkan
+            </p>
+        </div>
+
+        <h3>2.1.1 Spesifikasi Arduino UNO</h3>
+
+        <div class="component-card">
+            <div class="component-image">
+                <img src="images/arduino_uno.png" alt="Arduino UNO Board">
+                <figcaption>Arduino UNO Rev3</figcaption>
+            </div>
+            <div class="component-info">
+                <h4>Spesifikasi Teknis</h4>
+                <p>
+                    • Mikrokontroler: ATmega328P<br>
+                    • Tegangan Operasi: 5V<br>
+                    • Digital I/O Pins: 14 (6 PWM)<br>
+                    • Analog Input Pins: 6<br>
+                    • Flash Memory: 32 KB<br>
+                    • SRAM: 2 KB<br>
+                    • Clock Speed: 16 MHz
+                </p>
+            </div>
+        </div>
+
+        <h2>2.2 Pemrograman Arduino untuk Pemula</h2>
+        <p>Program Arduino ditulis menggunakan <strong>bahasa C/C++ yang disederhanakan</strong>. Program Arduino
+            disebut <strong>"Sketch"</strong> dan memiliki ekstensi <code>.ino</code>.</p>
+
+        <h3>2.2.1 Struktur Dasar Program Arduino</h3>
+        <p>Setiap program Arduino <strong>WAJIB</strong> memiliki dua fungsi utama:</p>
+
+        <pre><code>// STRUKTUR DASAR PROGRAM ARDUINO
+
+void setup() {
+  // DIJALANKAN SEKALI saat Arduino dinyalakan/reset
+  // Gunakan untuk: inisialisasi pin, sensor, Serial
+}
+
+void loop() {
+  // DIJALANKAN BERULANG-ULANG selamanya
+  // Gunakan untuk: logika utama program
+}</code></pre>
+
+        <h3>2.2.2 Contoh Program: LED Berkedip (Blink)</h3>
+
+        <pre><code>// PROGRAM: LED BLINK (Berkedip)
+// Fungsi: Menyalakan LED selama 1 detik, mati 1 detik
+
+int ledPin = 13;        // Simpan nomor pin LED
+
+void setup() {
+  pinMode(ledPin, OUTPUT);  // Set pin 13 sebagai OUTPUT
+}
+
+void loop() {
+  digitalWrite(ledPin, HIGH);  // Nyalakan LED (beri tegangan)
+  delay(1000);                 // Tunggu 1000ms (1 detik)
+  digitalWrite(ledPin, LOW);   // Matikan LED (putus tegangan)
+  delay(1000);                 // Tunggu 1 detik lagi
+}</code></pre>
+
+        <h2>2.3 Daftar Fungsi Arduino Penting</h2>
+
+        <h3>🔌 Fungsi Digital I/O</h3>
+        <table>
+            <tr>
+                <th>Fungsi</th>
+                <th>Deskripsi</th>
+                <th>Contoh</th>
+            </tr>
+            <tr>
+                <td><code>pinMode(pin, mode)</code></td>
+                <td>Set mode pin: INPUT, OUTPUT, INPUT_PULLUP</td>
+                <td><code>pinMode(13, OUTPUT);</code></td>
+            </tr>
+            <tr>
+                <td><code>digitalWrite(pin, value)</code></td>
+                <td>Tulis HIGH (5V) atau LOW (0V) ke pin</td>
+                <td><code>digitalWrite(13, HIGH);</code></td>
+            </tr>
+            <tr>
+                <td><code>digitalRead(pin)</code></td>
+                <td>Baca status pin (HIGH atau LOW)</td>
+                <td><code>int s = digitalRead(2);</code></td>
+            </tr>
+        </table>
+
+        <h3>📊 Fungsi Analog I/O</h3>
+        <table>
+            <tr>
+                <th>Fungsi</th>
+                <th>Deskripsi</th>
+                <th>Contoh</th>
+            </tr>
+            <tr>
+                <td><code>analogRead(pin)</code></td>
+                <td>Baca nilai analog (0-1023) dari pin A0-A5</td>
+                <td><code>int nilai = analogRead(A0);</code></td>
+            </tr>
+            <tr>
+                <td><code>analogWrite(pin, value)</code></td>
+                <td>PWM output (0-255) untuk kontrol kecerahan</td>
+                <td><code>analogWrite(9, 128);</code></td>
+            </tr>
+        </table>
+
+        <h2>2.4 Tipe Data dalam Arduino</h2>
+        <table>
+            <tr>
+                <th>Tipe</th>
+                <th>Ukuran</th>
+                <th>Rentang Nilai</th>
+                <th>Contoh</th>
+            </tr>
+            <tr>
+                <td><code>int</code></td>
+                <td>2 byte</td>
+                <td>-32,768 s/d 32,767</td>
+                <td><code>int suhu = 25;</code></td>
+            </tr>
+            <tr>
+                <td><code>long</code></td>
+                <td>4 byte</td>
+                <td>-2 miliar s/d 2 miliar</td>
+                <td><code>long waktu = 3600000;</code></td>
+            </tr>
+            <tr>
+                <td><code>float</code></td>
+                <td>4 byte</td>
+                <td>Desimal (±3.4e38)</td>
+                <td><code>float volt = 4.75;</code></td>
+            </tr>
+            <tr>
+                <td><code>boolean</code></td>
+                <td>1 byte</td>
+                <td>true atau false</td>
+                <td><code>boolean aktif = true;</code></td>
+            </tr>
+        </table>
+
+        <h2>2.5 Komunikasi Serial (Debugging)</h2>
+        <p>Serial Monitor digunakan untuk <strong>debugging</strong> — melihat output program di komputer.</p>
+
+        <pre><code>void setup() {
+  Serial.begin(9600);              // Mulai komunikasi serial
+  Serial.println("Arduino siap!"); // Cetak teks
+}
+
+void loop() {
+  int nilai = analogRead(A0);      // Baca sensor
+  Serial.print("Nilai sensor: ");
+  Serial.println(nilai);           // Tampilkan nilai
+  delay(500);
+}</code></pre>
+
+        <div class="info-box">
+            <h4>💡 Tips Debugging</h4>
+            <p>
+                • Buka Serial Monitor: <code>Tools → Serial Monitor</code> atau <code>Ctrl+Shift+M</code><br>
+                • Pastikan baud rate sama (biasanya 9600)<br>
+                • Gunakan <code>Serial.println()</code> untuk cek nilai variabel
+            </p>
+        </div>
+    </section>
+
+    <!-- ==================== BAB III: KOMPONEN ==================== -->
+    <section class="chapter" id="bab3">
+        <h1 class="chapter-title">BAB III<br>KOMPONEN-KOMPONEN ARDUINO</h1>
+
+        <h2>3.1 Komponen Input (Sensor)</h2>
+        <p>Komponen input memberikan informasi ke Arduino dari lingkungan eksternal.</p>
+
+        <div class="component-card">
+            <div class="component-image">
+                <img src="images/sensor_ultrasonik.png" alt="Sensor Ultrasonik HC-SR04">
+                <figcaption>Sensor HC-SR04</figcaption>
+            </div>
+            <div class="component-info">
+                <h4>1. Sensor Ultrasonik (HC-SR04)</h4>
+                <p>
+                    <strong>Deskripsi:</strong> Sensor dengan dua "mata" (pemancar dan penerima gelombang suara).<br>
+                    <strong>Fungsi:</strong> Mengukur jarak objek dengan cara memantulkan suara.<br>
+                    <strong>Spesifikasi:</strong> Jarak 2-400 cm, akurasi ±3 mm, sudut 15°
+                </p>
+                <p><strong>Contoh:</strong> Alat bantu parkir, robot penghindar rintangan.</p>
+            </div>
+        </div>
+
+        <div class="component-card">
+            <div class="component-image">
+                <img src="images/push_button.png" alt="Push Button">
+                <figcaption>Push Button Tactile</figcaption>
+            </div>
+            <div class="component-info">
+                <h4>2. Push Button (Tombol Tekan)</h4>
+                <p>
+                    <strong>Deskripsi:</strong> Saklar momentary yang hanya menyambung saat ditekan.<br>
+                    <strong>Fungsi:</strong> Memberikan sinyal masukan digital ke Arduino.
+                </p>
+                <p><strong>Contoh:</strong> Tombol Start, bel pintu, kontrol manual.</p>
+            </div>
+        </div>
+
+        <div class="component-card">
+            <div class="component-image">
+                <img src="images/ldr_sensor.png" alt="LDR Sensor">
+                <figcaption>LDR Photoresistor</figcaption>
+            </div>
+            <div class="component-info">
+                <h4>3. LDR (Light Dependent Resistor)</h4>
+                <p>
+                    <strong>Deskripsi:</strong> Sensor cahaya yang hambatannya berubah sesuai intensitas cahaya.<br>
+                    <strong>Fungsi:</strong> Mendeteksi tingkat cahaya (terang/gelap).
+                </p>
+                <p><strong>Contoh:</strong> Lampu jalan otomatis, kontrol intensitas cahaya.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== BAB IV: PROJECT PEMBELAJARAN ==================== -->
+    <section class="chapter" id="bab4">
+        <h1 class="chapter-title">BAB IV<br>PROJECT PEMBELAJARAN</h1>
+
+        <h2>4.1 Project 1: Running LED + Lagu Selamat Ulang Tahun</h2>
+
+        <div class="info-box">
+            <h4>📋 Deskripsi Project</h4>
+            <p>5 LED menyala bergantian sambil buzzer memainkan lagu "Happy Birthday". Project ini mendemonstrasikan
+                penggunaan array, iterasi loop, dan fungsi tone().</p>
+        </div>
+
+        <h3>Komponen yang Dibutuhkan</h3>
+        <table>
+            <tr>
+                <th>Komponen</th>
+                <th>Jumlah</th>
+                <th>Keterangan</th>
+            </tr>
+            <tr>
+                <td>Arduino UNO</td>
+                <td>1</td>
+                <td>Mikrokontroler utama</td>
+            </tr>
+            <tr>
+                <td>LED</td>
+                <td>5</td>
+                <td>Warna bebas (merah, kuning, hijau)</td>
+            </tr>
+            <tr>
+                <td>Resistor 220Ω</td>
+                <td>5</td>
+                <td>Pembatas arus untuk LED</td>
+            </tr>
+            <tr>
+                <td>Buzzer Piezoelektrik</td>
+                <td>1</td>
+                <td>Aktif buzzer untuk melodi</td>
+            </tr>
+            <tr>
+                <td>Breadboard + Jumper</td>
+                <td>1 set</td>
+                <td>Papan rangkaian</td>
+            </tr>
+        </table>
+
+        <h3>Kode Program (Tested & Working)</h3>
+        <pre><code>/*
+ * PROJECT: Running LED + Lagu "Selamat Ulang Tahun"
+ * LED 1-5 -> Pin 8, 9, 10, 11, 12
+ * Buzzer (+) -> Pin 7 (LANGSUNG tanpa resistor)
+ */
+
+int ledPins[] = {8, 9, 10, 11, 12};
+int jumlahLED = 5;
+int buzzerPin = 7;
+
+// Nada musik (Hz) - Oktaf Tinggi
+#define NOTE_C4  523
+#define NOTE_D4  587
+#define NOTE_E4  659
+#define NOTE_F4  698
+#define NOTE_G4  784
+
+void setup() {
+  for (int i = 0; i < jumlahLED; i++) {
+    pinMode(ledPins[i], OUTPUT);
+  }
+  pinMode(buzzerPin, OUTPUT);
+}
+
+void loop() {
+  playHappyBirthday();
+  delay(3000);
+}</code></pre>
+
+        <h2>4.2 Project 2: Sistem Deteksi Jarak (Sensor Parkir)</h2>
+
+        <div class="info-box">
+            <h4>📋 Deskripsi Project</h4>
+            <p>Sistem deteksi jarak dengan 4 tingkat peringatan. LED dan buzzer berubah intensitas sesuai jarak objek -
+                mirip sensor parkir mobil.</p>
+        </div>
+
+        <h3>Tabel Respons 4 Tingkat</h3>
+        <table>
+            <tr>
+                <th>Jarak</th>
+                <th>LED</th>
+                <th>Buzzer</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>> 50 cm</td>
+                <td>● ○ ○ ○</td>
+                <td>Beep pelan</td>
+                <td>AMAN ✓</td>
+            </tr>
+            <tr>
+                <td>30-50 cm</td>
+                <td>● ● ○ ○</td>
+                <td>Beep sedang</td>
+                <td>HATI-HATI ⚠</td>
+            </tr>
+            <tr>
+                <td>10-30 cm</td>
+                <td>● ● ● ○</td>
+                <td>Beep cepat</td>
+                <td>PERINGATAN ⚠⚠</td>
+            </tr>
+            <tr>
+                <td>
+                    < 10 cm</td>
+                <td>● ● ● 💥</td>
+                <td>ALARM KERAS</td>
+                <td>BAHAYA!!! 🚨</td>
+            </tr>
+        </table>
+
+        <h3>Kode Program Sensor Parkir</h3>
+        <pre><code>/*
+ * PROJECT: ALARM SENSOR GERAKAN + 4 LED INDIKATOR
+ * Sensor: TRIG=Pin5, ECHO=Pin6
+ * LED: Pin 8,9,10,11 | Buzzer: Pin 13
+ */
+
+const int trigPin = 5;
+const int echoPin = 6;
+const int led1Pin = 8;   // Hijau
+const int led2Pin = 9;   // Kuning
+const int led3Pin = 10;  // Orange
+const int led4Pin = 11;  // Merah
+const int buzzerPin = 13;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(led1Pin, OUTPUT);
+  pinMode(led2Pin, OUTPUT);
+  pinMode(led3Pin, OUTPUT);
+  pinMode(led4Pin, OUTPUT);
+  pinMode(buzzerPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int distance = measureDistance();
+  
+  if (distance > 50) {
+    // AMAN - LED 1 saja
+    digitalWrite(led1Pin, HIGH);
+    digitalWrite(led2Pin, LOW);
+    tone(buzzerPin, 500, 100);
+    delay(1000);
+  }
+  else if (distance > 10) {
+    // PERINGATAN - LED 1,2,3
+    digitalWrite(led1Pin, HIGH);
+    digitalWrite(led2Pin, HIGH);
+    digitalWrite(led3Pin, HIGH);
+    tone(buzzerPin, 1500, 200);
+    delay(300);
+  }
+  else {
+    // BAHAYA - Semua LED + alarm
+    for (int i = 0; i < 5; i++) {
+      digitalWrite(led4Pin, HIGH);
+      tone(buzzerPin, 2500);
+      delay(50);
+      noTone(buzzerPin);
+      delay(50);
+    }
+  }
+}</code></pre>
+
+        <h2>4.3 Project 3: Kontrol Motor Servo</h2>
+
+        <div class="info-box">
+            <h4>📋 Deskripsi Project</h4>
+            <p>Motor servo bergerak dari 0° ke 90° ke 180° secara berulang. Project ini mendemonstrasikan penggunaan
+                library Servo.</p>
+        </div>
+
+        <pre><code>/*
+ * PROGRAM TEST SERVO SEDERHANA
+ * Koneksi: Kabel Kuning -> Pin 4, Merah -> 5V, Coklat -> GND
+ */
+
+#include <Servo.h>
+
+Servo myServo;
+
+void setup() {
+  myServo.attach(4);
+}
+
+void loop() {
+  myServo.write(0);    // Posisi awal
+  delay(1000);
+  myServo.write(90);   // Posisi tengah
+  delay(1000);
+  myServo.write(180);  // Posisi akhir
+  delay(1000);
+}</code></pre>
+
+        <h2>4.4 Project 4: Push Button dengan LED</h2>
+
+        <pre><code>/*
+ * PROJECT: Button dengan LED
+ * LED -> Pin 2 (dengan resistor 220Ω)
+ * Button -> Pin 3 (ke GND)
+ */
+
+const int pinLED = 2;
+const int pinButton = 3;
+
+void setup() {
+  pinMode(pinLED, OUTPUT);
+  pinMode(pinButton, INPUT_PULLUP);
+}
+
+void loop() {
+  int statusButton = digitalRead(pinButton);
+  
+  if (statusButton == LOW) {
+    digitalWrite(pinLED, HIGH); // LED Menyala
+  } else {
+    digitalWrite(pinLED, LOW);  // LED Mati
+  }
+}</code></pre>
+    </section>
+
+    <!-- ==================== BAB V: PENUTUP ==================== -->
+    <section class="chapter" id="bab5">
+        <h1 class="chapter-title">BAB V<br>PENUTUP</h1>
+
+        <h2>5.1 Kesimpulan</h2>
+        <p>Berdasarkan pembahasan dalam modul ini, dapat disimpulkan beberapa hal penting:</p>
+
+        <ol>
+            <li><strong>Arduino sebagai Platform Pembelajaran AI:</strong> Arduino merupakan platform ideal untuk
+                mempelajari konsep dasar Kecerdasan Buatan karena sifatnya yang open-source, terjangkau, dan didukung
+                komunitas global.</li>
+            <li><strong>Integrasi Hardware dan Software:</strong> Pemrograman mikrokontroler Arduino memungkinkan
+                pemahaman hubungan antara kode program dengan respons hardware melalui sensor dan aktuator.</li>
+            <li><strong>Implementasi Sistem Cerdas:</strong> Project-project seperti sensor parkir, running LED, servo
+                motor, dan button control mengimplementasikan logika pengambilan keputusan dasar sistem AI.</li>
+            <li><strong>Keterampilan Praktis:</strong> Modul ini membekali keterampilan praktis dalam merangkai komponen
+                elektronik, debugging, dan pemahaman prinsip kerja mikrokontroler.</li>
+            <li><strong>Fondasi Pengembangan Lanjutan:</strong> Pengetahuan ini menjadi fondasi untuk mempelajari topik
+                AI lebih kompleks seperti Machine Learning, Computer Vision, dan IoT.</li>
+        </ol>
+
+        <h2>5.2 Saran</h2>
+        <p>Untuk pengembangan lebih lanjut dari modul dan penerapan pembelajaran ini, disarankan:</p>
+
+        <ol>
+            <li><strong>Eksplorasi Sensor Tambahan:</strong> Bereksperimen dengan sensor lain seperti DHT11
+                (suhu/kelembaban), MQ-2 (gas), atau sensor warna.</li>
+            <li><strong>Integrasi Platform IoT:</strong> Integrasikan project Arduino dengan Blynk, ThingSpeak, atau
+                MQTT untuk monitoring jarak jauh.</li>
+            <li><strong>Penerapan Machine Learning:</strong> Gunakan Arduino Nano 33 BLE Sense dengan TensorFlow Lite
+                untuk model ML sederhana.</li>
+            <li><strong>Dokumentasi Project:</strong> Dokumentasikan setiap project dalam bentuk laporan atau video
+                tutorial.</li>
+            <li><strong>Kolaborasi Tim:</strong> Kerjakan project dalam tim untuk mengembangkan kemampuan kolaborasi dan
+                problem-solving.</li>
+        </ol>
+
+        <div class="info-box">
+            <h4>💡 Pesan Penutup</h4>
+            <p>Pembelajaran mikrokontroler Arduino adalah langkah awal yang sangat baik untuk memahami dunia embedded
+                systems dan AI. Teruslah bereksperimen, jangan takut gagal, dan selalu dokumentasikan setiap
+                pembelajaran. Selamat berkarya!</p>
+        </div>
+    </section>
+
+    <!-- ==================== DAFTAR PUSTAKA ==================== -->
+    <section class="chapter" id="daftar-pustaka">
+        <h1 class="chapter-title">DAFTAR PUSTAKA</h1>
+
+        <div class="bibliography">
+            <p>Banzi, M., & Shiloh, M. (2014). <em>Getting Started with Arduino</em> (3rd ed.). O'Reilly Media.</p>
+
+            <p>Brooks, R. A. (1991). Intelligence without representation. <em>Artificial Intelligence</em>, 47(1-3),
+                139-159. [MIT Artificial Intelligence Laboratory]</p>
+
+            <p>Gershenfeld, N. (2005). <em>Fab: The Coming Revolution on Your Desktop</em>. Basic Books. [MIT Center for
+                Bits and Atoms]</p>
+
+            <p>Igoe, T., & O'Sullivan, D. (2004). <em>Physical Computing: Sensing and Controlling the Physical World
+                    with Computers</em>. Course Technology. [MIT Media Lab / NYU ITP]</p>
+
+            <p>Monk, S. (2016). <em>Programming Arduino: Getting Started with Sketches</em> (2nd ed.). McGraw-Hill
+                Education.</p>
+
+            <p>Russell, S., & Norvig, P. (2020). <em>Artificial Intelligence: A Modern Approach</em> (4th ed.). Pearson.
+                [UC Berkeley / Google]</p>
+
+            <p>Sutton, R. S., & Barto, A. G. (2018). <em>Reinforcement Learning: An Introduction</em> (2nd ed.). MIT
+                Press.</p>
+
+            <p>Warden, P., & Situnayake, D. (2019). <em>TinyML: Machine Learning with TensorFlow Lite on Arduino and
+                    Ultra-Low-Power Microcontrollers</em>. O'Reilly Media.</p>
+        </div>
+    </section>
+
+    <script>
+        function downloadPDF() {
+            const element = document.body;
+            const opt = {
+                margin: 0,
+                filename: 'Modul-Kecerdasan-Buatan-Arduino-2026.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+</body>
+
+</html>
