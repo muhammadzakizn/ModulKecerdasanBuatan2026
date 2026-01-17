@@ -602,24 +602,110 @@
 
         <p><strong>Arduino</strong> adalah platform elektronik open-source yang diciptakan pada tahun 2005 di
             <strong>Interaction Design Institute Ivrea (IDII)</strong>, Italia. Nama "Arduino" diambil dari nama sebuah
-            bar di Ivrea, Italia, tempat para pendiri sering berkumpul. Bar tersebut dinamai mengikuti nama Raja Arduino
+            bar lokal di Ivrea bernama <strong>"Bar del Re Arduino"</strong>, yang dinamai mengikuti nama Raja Arduin
             dari Ivrea (1002-1015 M).
         </p>
 
-        <h3>Sejarah Singkat Arduino</h3>
+        <figure>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Arduino_Uno_-_R3.jpg/800px-Arduino_Uno_-_R3.jpg"
+                alt="Arduino UNO R3" style="max-width: 100mm; border-radius: 8px;">
+            <figcaption>Gambar 1.1 — Arduino UNO R3, board paling populer dan menjadi standar industri sejak 2010.
+                (Sumber: Wikimedia Commons)</figcaption>
+        </figure>
+
+        <h3>Latar Belakang Pendirian</h3>
+        <p>Arduino dikembangkan sebagai solusi atas kebutuhan mahasiswa desain di IDII yang memerlukan alat prototyping
+            elektronik yang terjangkau. Sebelum Arduino, board mikrokontroler seperti <strong>BASIC Stamp</strong> dan
+            <strong>Wiring</strong> terlalu mahal (sekitar $100) untuk eksperimen mahasiswa. Tim pengembang Arduino
+            berhasil menciptakan board dengan harga sekitar <strong>$30</strong>, membuatnya dapat diakses oleh siapa
+            saja.
+        </p>
+
+        <p>Proyek Arduino berakar dari <strong>Wiring</strong>, sebuah platform yang dikembangkan oleh Hernando Barragán
+            sebagai proyek thesis di IDII pada tahun 2003-2004. Tim Arduino kemudian menyederhanakan desain hardware
+            dengan menggunakan mikrokontroler <strong>ATmega8</strong> untuk mengurangi biaya produksi.</p>
+
+        <h3>Timeline Perkembangan Arduino</h3>
+        <p>Berikut adalah timeline lengkap perkembangan Arduino dari awal hingga saat ini:</p>
+
+        <table>
+            <tr>
+                <th>Tahun</th>
+                <th>Peristiwa</th>
+                <th>Keterangan</th>
+            </tr>
+            <tr>
+                <td><strong>2000</strong></td>
+                <td>IDII Didirikan</td>
+                <td>Interaction Design Institute Ivrea didirikan oleh Telecom Italia dan Olivetti di bekas pabrik
+                    Olivetti, Ivrea.</td>
+            </tr>
+            <tr>
+                <td><strong>2003</strong></td>
+                <td>Proyek Wiring</td>
+                <td>Hernando Barragán memulai Wiring project sebagai thesis di IDII, menjadi fondasi awal Arduino.</td>
+            </tr>
+            <tr>
+                <td><strong>2005</strong></td>
+                <td>Arduino Lahir</td>
+                <td>Board Arduino pertama dirilis di IDII dengan mikrokontroler ATmega8. Batch pertama diproduksi dengan
+                    dana sekitar 3.000 Euro.</td>
+            </tr>
+            <tr>
+                <td><strong>2008</strong></td>
+                <td>Arduino Nano</td>
+                <td>Versi compact untuk proyek embedded yang membutuhkan ukuran kecil.</td>
+            </tr>
+            <tr>
+                <td><strong>2009</strong></td>
+                <td>Arduino Mega</td>
+                <td>Menggunakan ATmega2560 dengan lebih banyak pin I/O untuk proyek kompleks.</td>
+            </tr>
+            <tr>
+                <td><strong>2010</strong></td>
+                <td>Arduino UNO</td>
+                <td>Flagship board dengan ATmega328P, menjadi standar industri dan referensi untuk tutorial.</td>
+            </tr>
+            <tr>
+                <td><strong>2012</strong></td>
+                <td>Arduino Leonardo</td>
+                <td>Menggunakan ATmega32u4 dengan native USB HID support.</td>
+            </tr>
+            <tr>
+                <td><strong>2014</strong></td>
+                <td>Arduino Zero</td>
+                <td>Board pertama dengan ARM Cortex-M0+ (SAMD21) untuk debugging lanjutan.</td>
+            </tr>
+            <tr>
+                <td><strong>2015</strong></td>
+                <td>Trademark Dispute</td>
+                <td>Perselisihan antara Arduino LLC dan Arduino SRL mengenai merek dagang, menyebabkan fragmentasi
+                    sementara.</td>
+            </tr>
+            <tr>
+                <td><strong>2017</strong></td>
+                <td>Arduino Holding</td>
+                <td>Kedua entitas bergabung kembali membentuk Arduino Holding di bawah kepemimpinan Massimo Banzi.</td>
+            </tr>
+            <tr>
+                <td><strong>2020</strong></td>
+                <td>Arduino Nano 33 BLE Sense</td>
+                <td>Board dengan dukungan TinyML (TensorFlow Lite) untuk aplikasi machine learning pada edge device.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>2022-2024</strong></td>
+                <td>Nicla Series</td>
+                <td>Board AI-focused dengan kamera dan sensor untuk edge computing dan computer vision.</td>
+            </tr>
+        </table>
+
         <div class="info-box">
-            <h4>📅 Timeline Perkembangan Arduino</h4>
-            <p>
-                <strong>2003:</strong> Proyek awal dimulai oleh Hernando Barragán sebagai thesis project di IDII
-                Ivrea<br>
-                <strong>2005:</strong> Arduino board pertama dirilis dengan harga terjangkau ($30)<br>
-                <strong>2008:</strong> Arduino Duemilanove dirilis dengan auto-reset dan USB yang stabil<br>
-                <strong>2010:</strong> Arduino UNO dirilis dan menjadi standar industri; Arduino Day mulai dirayakan<br>
-                <strong>2012:</strong> Arduino Leonardo dengan native USB support<br>
-                <strong>2017:</strong> Kedua entitas bergabung kembali membentuk Arduino Holding<br>
-                <strong>2020:</strong> Arduino Nano 33 BLE Sense dengan TinyML support<br>
-                <strong>2023:</strong> Arduino Cloud mencapai 1 juta pengguna aktif
-            </p>
+            <h4>Pencapaian Arduino</h4>
+            <p>Hingga tahun 2024, Arduino telah mencapai tonggak penting: lebih dari <strong>20 juta board</strong>
+                terjual, digunakan di <strong>200+ negara</strong>, dengan <strong>28+ juta pengguna aktif</strong>.
+                Platform ini telah digunakan dalam berbagai proyek, mulai dari LED sederhana hingga <strong>NASA
+                    CubeSats</strong> (satelit kecil).</p>
         </div>
 
         <h2>1.2 Pendiri Arduino</h2>
@@ -833,7 +919,7 @@
             ATmega328P.</p>
 
         <div class="info-box">
-            <h4>🎯 Mengapa Arduino Populer untuk Pemula?</h4>
+            <h4>Mengapa Arduino Populer untuk Pemula?</h4>
             <p>
                 • <strong>Mudah dipelajari</strong> — Bahasa pemrograman sederhana berbasis C/C++<br>
                 • <strong>Komunitas besar</strong> — Banyak tutorial dan forum bantuan<br>
@@ -902,7 +988,7 @@ void loop() {
 
         <h2>2.3 Daftar Fungsi Arduino Penting</h2>
 
-        <h3>🔌 Fungsi Digital I/O</h3>
+        <h3>Fungsi Digital I/O</h3>
         <table>
             <tr>
                 <th>Fungsi</th>
@@ -926,7 +1012,7 @@ void loop() {
             </tr>
         </table>
 
-        <h3>📊 Fungsi Analog I/O</h3>
+        <h3>Fungsi Analog I/O</h3>
         <table>
             <tr>
                 <th>Fungsi</th>
@@ -995,7 +1081,7 @@ void loop() {
 }</code></pre>
 
         <div class="info-box">
-            <h4>💡 Tips Debugging</h4>
+            <h4>Tips Debugging</h4>
             <p>
                 • Buka Serial Monitor: <code>Tools → Serial Monitor</code> atau <code>Ctrl+Shift+M</code><br>
                 • Pastikan baud rate sama (biasanya 9600)<br>
@@ -1065,7 +1151,7 @@ void loop() {
         <h2>4.1 Project 1: Running LED + Lagu Selamat Ulang Tahun</h2>
 
         <div class="info-box">
-            <h4>📋 Deskripsi Project</h4>
+            <h4>Deskripsi Project</h4>
             <p>5 LED menyala bergantian sambil buzzer memainkan lagu "Happy Birthday". Project ini mendemonstrasikan
                 penggunaan array, iterasi loop, dan fungsi tone().</p>
         </div>
@@ -1137,7 +1223,7 @@ void loop() {
         <h2>4.2 Project 2: Sistem Deteksi Jarak (Sensor Parkir)</h2>
 
         <div class="info-box">
-            <h4>📋 Deskripsi Project</h4>
+            <h4>Deskripsi Project</h4>
             <p>Sistem deteksi jarak dengan 4 tingkat peringatan. LED dan buzzer berubah intensitas sesuai jarak objek -
                 mirip sensor parkir mobil.</p>
         </div>
@@ -1151,29 +1237,28 @@ void loop() {
                 <th>Status</th>
             </tr>
             <tr>
-                <td>> 50 cm</td>
-                <td>● ○ ○ ○</td>
+                <td>&gt; 50 cm</td>
+                <td>[*][ ][ ][ ]</td>
                 <td>Beep pelan</td>
-                <td>AMAN ✓</td>
+                <td>AMAN</td>
             </tr>
             <tr>
                 <td>30-50 cm</td>
-                <td>● ● ○ ○</td>
+                <td>[*][*][ ][ ]</td>
                 <td>Beep sedang</td>
-                <td>HATI-HATI ⚠</td>
+                <td>HATI-HATI</td>
             </tr>
             <tr>
                 <td>10-30 cm</td>
-                <td>● ● ● ○</td>
+                <td>[*][*][*][ ]</td>
                 <td>Beep cepat</td>
-                <td>PERINGATAN ⚠⚠</td>
+                <td>PERINGATAN</td>
             </tr>
             <tr>
-                <td>
-                    < 10 cm</td>
-                <td>● ● ● 💥</td>
+                <td>&lt; 10 cm</td>
+                <td>[*][*][*][*]</td>
                 <td>ALARM KERAS</td>
-                <td>BAHAYA!!! 🚨</td>
+                <td>BAHAYA!!!</td>
             </tr>
         </table>
 
@@ -1236,7 +1321,7 @@ void loop() {
         <h2>4.3 Project 3: Kontrol Motor Servo</h2>
 
         <div class="info-box">
-            <h4>📋 Deskripsi Project</h4>
+            <h4>Deskripsi Project</h4>
             <p>Motor servo bergerak dari 0° ke 90° ke 180° secara berulang. Project ini mendemonstrasikan penggunaan
                 library Servo.</p>
         </div>
@@ -1328,7 +1413,7 @@ void loop() {
         </ol>
 
         <div class="info-box">
-            <h4>💡 Pesan Penutup</h4>
+            <h4>Pesan Penutup</h4>
             <p>Pembelajaran mikrokontroler Arduino adalah langkah awal yang sangat baik untuk memahami dunia embedded
                 systems dan AI. Teruslah bereksperimen, jangan takut gagal, dan selalu dokumentasikan setiap
                 pembelajaran. Selamat berkarya!</p>
