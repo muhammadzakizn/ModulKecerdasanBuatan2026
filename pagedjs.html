@@ -1302,6 +1302,119 @@ void loop() {
         </div>
     </section>
 
+    <!-- ==================== LAMPIRAN ==================== -->
+    <section class="chapter" id="lampiran">
+        <h1 class="chapter-title">LAMPIRAN</h1>
+
+        <h2>Lampiran A: Kode Program Lengkap</h2>
+
+        <h3>A.1 Test Sensor Ultrasonik Sederhana</h3>
+        <pre><code>/*
+ * PROJECT: TEST SENSOR ULTRASONIK HC-SR04
+ */
+
+const int trigPin = 5;
+const int echoPin = 6;
+long duration;
+int distance;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  Serial.begin(9600);
+  Serial.println("===========================");
+  Serial.println("TEST SENSOR ULTRASONIK");
+  Serial.println("===========================");
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.0343 / 2;
+  
+  Serial.print("Jarak: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  
+  delay(500);
+}</code></pre>
+
+        <h2>Lampiran B: Pin Mapping Arduino UNO</h2>
+        <table>
+            <tr>
+                <th>Pin Type</th>
+                <th>Pin Numbers</th>
+                <th>Fungsi</th>
+            </tr>
+            <tr>
+                <td>Digital I/O</td>
+                <td>0-13</td>
+                <td>Input/Output digital</td>
+            </tr>
+            <tr>
+                <td>PWM (~)</td>
+                <td>3, 5, 6, 9, 10, 11</td>
+                <td>Output analog (0-255)</td>
+            </tr>
+            <tr>
+                <td>Analog Input</td>
+                <td>A0-A5</td>
+                <td>Input analog (0-1023)</td>
+            </tr>
+            <tr>
+                <td>Power</td>
+                <td>5V, 3.3V, GND, VIN</td>
+                <td>Supply tegangan</td>
+            </tr>
+        </table>
+
+        <h2>Lampiran C: Referensi Online</h2>
+        <ul>
+            <li><strong>Arduino Official:</strong> https://www.arduino.cc</li>
+            <li><strong>Arduino Forum:</strong> https://forum.arduino.cc</li>
+            <li><strong>Arduino Project Hub:</strong> https://create.arduino.cc/projecthub</li>
+            <li><strong>TinkerCAD Circuits:</strong> https://www.tinkercad.com/circuits</li>
+        </ul>
+    </section>
+
+    <!-- ==================== DAFTAR SUMBER GAMBAR ==================== -->
+    <section class="chapter" id="daftar-gambar">
+        <h1 class="chapter-title">DAFTAR SUMBER GAMBAR</h1>
+
+        <h3>Figures & Expert Photos</h3>
+        <ul style="font-size: 9pt;">
+            <li><strong>Gambar 1.1 Simon Monk:</strong> https://github.com/simonmonk</li>
+            <li><strong>Gambar 1.2 Tom Igoe:</strong> http://tisch.nyu.edu/about/directory/itp/</li>
+            <li><strong>Gambar 1.2 Dan O'Sullivan:</strong> http://tisch.nyu.edu/about/directory/itp/</li>
+            <li><strong>Gambar 1.3 Stuart Russell:</strong>
+                https://www.artificial-intelligence.blog/people-in-ai/stuart-russell</li>
+            <li><strong>Gambar 1.3 Peter Norvig:</strong> https://www.xprize.org/people/peter-norvig</li>
+            <li><strong>Gambar 1.4 Minsky:</strong> https://id.wikipedia.org/wiki/Marvin_Minsky</li>
+            <li><strong>Gambar 1.4 Brooks:</strong> https://en.wikipedia.org/wiki/Rodney_Brooks</li>
+            <li><strong>Gambar 1.4 Picard:</strong> https://www.media.mit.edu/~picard</li>
+            <li><strong>Gambar 1.4 Winston:</strong> https://cbmm.mit.edu/about/people/winston</li>
+            <li><strong>Gambar 1.4 Sutton/Barto:</strong> https://webdocs.cs.ualberta.ca/~sutton/</li>
+            <li><strong>Gambar 1.4 Warden/Situnayake:</strong> https://se-radio.net</li>
+            <li><strong>Gambar 1.4 Gershenfeld:</strong> https://www.edge.org/memberbio/neil_gershenfeld</li>
+            <li><strong>Gambar 5.1 Massimo Banzi:</strong> https://commons.wikimedia.org/wiki/File:Massimo_banzi.jpg
+            </li>
+            <li><strong>Arduino UNO Board:</strong> https://store.arduino.cc/products/arduino-uno-rev3</li>
+            <li><strong>Sensors & Components:</strong> Diagram by Fritzing & Arduino Docs</li>
+            <li><strong>IDII Building:</strong>
+                https://commons.wikimedia.org/wiki/File:Interaction_Design_Institute_Ivrea_Building_(2001-2005).jpg</li>
+        </ul>
+    </section>
+
+    <!-- ==================== BACK COVER ==================== -->
+    <div class="cover-page">
+        <img src="images/cover_page_3.jpg" alt="Cover Belakang Modul">
+    </div>
+
     <script>
         function downloadPDF() {
             const element = document.body;
