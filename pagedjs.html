@@ -1091,7 +1091,7 @@ int buzzerPin = 7;
 #define NOTE_G4  784
 
 void setup() {
-  for (int i = 0; i < jumlahLED; i++) {
+  for (int i = 0; i &lt; jumlahLED; i++) {
     pinMode(ledPins[i], OUTPUT);
   }
   pinMode(buzzerPin, OUTPUT);
@@ -1174,14 +1174,14 @@ void setup() {
 void loop() {
   int distance = measureDistance();
   
-  if (distance > 50) {
+  if (distance &gt; 50) {
     // AMAN - LED 1 saja
     digitalWrite(led1Pin, HIGH);
     digitalWrite(led2Pin, LOW);
     tone(buzzerPin, 500, 100);
     delay(1000);
   }
-  else if (distance > 10) {
+  else if (distance &gt; 10) {
     // PERINGATAN - LED 1,2,3
     digitalWrite(led1Pin, HIGH);
     digitalWrite(led2Pin, HIGH);
@@ -1191,7 +1191,7 @@ void loop() {
   }
   else {
     // BAHAYA - Semua LED + alarm
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i &lt; 5; i++) {
       digitalWrite(led4Pin, HIGH);
       tone(buzzerPin, 2500);
       delay(50);
