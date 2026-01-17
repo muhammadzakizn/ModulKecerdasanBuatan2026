@@ -440,6 +440,10 @@
             content: target-counter(attr(data-target), page);
         }
 
+        .toc-page.static::after {
+            content: none;
+        }
+
         /* ==================== DOWNLOAD BUTTON ==================== */
         .download-btn {
             position: fixed;
@@ -573,11 +577,11 @@
         <h1 class="toc-title">DAFTAR ISI</h1>
 
         <a href="#kata-pengantar" class="toc-item main"><span>KATA PENGANTAR</span><span class="toc-dots"></span><span
-                class="toc-page">i</span></a>
+                class="toc-page static">i</span></a>
         <a href="#daftar-isi" class="toc-item main"><span>DAFTAR ISI</span><span class="toc-dots"></span><span
-                class="toc-page">ii</span></a>
+                class="toc-page static">ii</span></a>
         <a href="#daftar-gambar" class="toc-item main"><span>DAFTAR GAMBAR</span><span class="toc-dots"></span><span
-                class="toc-page">iii</span></a>
+                class="toc-page static">iii</span></a>
 
         <a href="#bab1" class="toc-item main"><span>BAB I — PENDAHULUAN</span><span class="toc-dots"></span><span
                 class="toc-page" data-target="#bab1"></span></a>
