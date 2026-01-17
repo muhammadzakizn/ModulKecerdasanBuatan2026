@@ -44,7 +44,8 @@
         /* ==================== PAGE STRUCTURE ==================== */
         .page {
             width: 210mm;
-            min-height: 297mm;
+            height: 297mm;
+            max-height: 297mm;
             background: white;
             margin: 20px auto;
             padding: 0;
@@ -53,6 +54,7 @@
             page-break-inside: avoid;
             position: relative;
             box-sizing: border-box;
+            overflow: hidden;
         }
 
         .page:last-child {
@@ -1021,48 +1023,32 @@
 
             <h2 class="section-title">1.3 Perusahaan Arduino</h2>
 
-            <div style="text-align: center; margin: 5mm 0;">
+            <div style="text-align: center; margin: 3mm 0;">
                 <img src="images/arduino_headquarters.png" alt="Kantor Pusat Arduino - Turin, Italia"
-                    style="width: 100%; max-width: 150mm; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                <p style="font-size: 8pt; color: #666; margin-top: 3mm; font-style: italic;">
-                    Gambar 1.1 — Arduino Headquarters, Toolbox Coworking, Turin, Italia
+                    style="width: 100%; max-width: 100mm; border-radius: 6px;">
+                <p style="font-size: 7pt; color: #666; margin-top: 2mm; font-style: italic;">
+                    Gambar 1.1 — Arduino HQ, Toolbox Coworking, Turin
                 </p>
             </div>
 
-            <h3 class="subsection-title">Sejarah Perusahaan</h3>
-            <p>Arduino dimulai pada tahun <strong>2005</strong> di <strong>Interaction Design Institute Ivrea
-                    (IDII)</strong>, Italia.
-                Proyek ini awalnya dibuat untuk membantu mahasiswa desain membuat prototipe interaktif tanpa memerlukan
-                keahlian elektronik mendalam.</p>
+            <p style="font-size: 9pt;">Arduino didirikan tahun <strong>2005</strong> di Interaction Design Institute
+                Ivrea (IDII), Italia,
+                untuk membantu mahasiswa desain membuat prototipe interaktif.</p>
 
-            <h3 class="subsection-title">Struktur Perusahaan</h3>
-            <ul>
-                <li><strong>Arduino LLC</strong> — Berbasis di Amerika Serikat, mengelola merek dan properti intelektual
-                </li>
-                <li><strong>Arduino SRL</strong> — Berbasis di Italia, menangani manufaktur dan distribusi</li>
-                <li><strong>Arduino Holding</strong> — Entitas gabungan sejak 2017, dipimpin CEO Fabio Violante</li>
+            <h3 class="subsection-title" style="font-size: 10pt; margin-top: 3mm;">Struktur Perusahaan</h3>
+            <ul style="font-size: 9pt; margin: 2mm 0;">
+                <li><strong>Arduino LLC</strong> — AS, mengelola merek & IP</li>
+                <li><strong>Arduino SRL</strong> — Italia, manufaktur & distribusi</li>
+                <li><strong>Arduino Holding</strong> — Gabungan 2017, CEO Fabio Violante</li>
             </ul>
 
-            <h3 class="subsection-title">Kantor Pusat</h3>
-            <p>Arduino berkantor pusat di <strong>Toolbox Coworking</strong>, sebuah gedung bekas pabrik FIAT yang telah
-                direnovasi
-                di Turin, Italia. Gedung ini juga berfungsi sebagai makerspace dan Fablab yang dikenal sebagai
-                <strong>Officine Arduino Torino</strong>.
-            </p>
+            <p style="font-size: 9pt;">Kantor pusat di <strong>Toolbox Coworking</strong>, Turin (bekas pabrik FIAT),
+                juga berfungsi sebagai <strong>Officine Arduino Torino</strong> (makerspace).</p>
 
-            <h3 class="subsection-title">Pencapaian</h3>
-            <div class="info-box">
-                <ul style="margin: 0; padding-left: 5mm;">
-                    <li><strong>30+ juta</strong> board Arduino terjual di seluruh dunia</li>
-                    <li>Hadir di <strong>200+ negara</strong></li>
-                    <li>Komunitas <strong>28+ juta</strong> pengguna aktif</li>
-                    <li>Platform pendidikan di <strong>ribuan sekolah dan universitas</strong></li>
-                </ul>
+            <div class="info-box" style="padding: 3mm; margin: 3mm 0;">
+                <p style="font-size: 9pt; margin: 0;"><strong>Pencapaian:</strong> 30+ juta board terjual, 200+ negara,
+                    28+ juta pengguna, platform pendidikan di ribuan sekolah.</p>
             </div>
-
-            <h3 class="subsection-title">Produk Utama</h3>
-            <p>Arduino menawarkan berbagai produk mulai dari board untuk pemula (Arduino Uno) hingga board profesional
-                (Arduino Portenta), serta platform IoT cloud dan perangkat lunak Arduino IDE.</p>
         </div>
         <span class="page-number right">3</span>
     </div>
