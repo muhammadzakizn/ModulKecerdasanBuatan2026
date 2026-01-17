@@ -52,8 +52,30 @@
         }
 
         @page frontmatter {
+            @top-left {
+                content: none;
+            }
+
+            @top-right {
+                content: none;
+            }
+
             @bottom-center {
                 content: counter(page, lower-roman);
+            }
+        }
+
+        @page notes {
+            @top-left {
+                content: none;
+            }
+
+            @top-right {
+                content: none;
+            }
+
+            @bottom-center {
+                content: none;
             }
         }
 
@@ -495,6 +517,7 @@
 
         /* ==================== NOTES PAGES ==================== */
         .notes-page {
+            page: notes;
             break-before: page;
             padding-top: 10mm;
         }
@@ -907,7 +930,10 @@
         <h2 id="sec-1-5">1.5 Hubungan Arduino dengan AI</h2>
 
         <div class="quote-container">
-            <img class="expert-photo" src="images/experts/stuart_russell.webp" alt="Stuart Russell">
+            <div style="display: flex; gap: 10px;">
+                <img class="expert-photo" src="images/experts/stuart_russell.webp" alt="Stuart Russell">
+                <img class="expert-photo" src="images/experts/peter_norvig.jpg" alt="Peter Norvig">
+            </div>
             <div class="quote-content">
                 "Intelligent agents must be able to perceive their environment, reason about what they perceive, and
                 take actions that affect that environment. The sense-plan-act paradigm is fundamental to understanding
